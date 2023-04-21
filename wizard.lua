@@ -174,7 +174,7 @@ local function main()
 	elseif (arg[1] == "build") then
 		build_cursor_theme()
 	else
-		print_error("not flag or argument used.")
+		print_error("no flag or argument used.")
 		print(
 			"Use " ..
 			highlight("-h") ..
