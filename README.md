@@ -17,6 +17,14 @@
 					<td>xterm</td>
 					<td><img src="./source_images/xterm.png"/></td>
 				</tr>
+				<tr>
+					<td>hand2</td>
+					<td><img src="./source_images/hand2.png"/></td>
+				</tr>
+				<tr>
+					<td>not-allowed</td>
+					<td><img src="./source_images/not-allowed.png"/></td>
+				</tr>
 			</body>
 		</table>
 	<h2>Installation And Usage</h2>
