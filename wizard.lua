@@ -71,7 +71,7 @@ local function print_usage_instructions()
 		"Starting Point"
 	)
 	print(
-		"\t\tThis is a script to manage the build of " ..
+		"\t\tThis is a script to manage the build, install and uninstall of " ..
 		cursor_theme.name ..
 		"."
 	)
@@ -95,6 +95,12 @@ local function print_usage_instructions()
 	)
 	print("\t\t\tIf you are root, the installation will be at /usr/share/icons.")
 	print("\t\t\tIf you are a normal user, the installation will be at ${HOME}/.local/share/icons.")
+	print(
+		"\t\t\t" ..
+		highlight("uninstall") ..
+		": uninstall the cursor for your user."
+	)
+	print("\t\t\tIt removes the installation directory used for an installation for your user.")
 end
 
 local function create_directory_structure()
@@ -206,11 +212,38 @@ local function install_cursor_theme()
 	return
 end
 
+local function uninstall_cursor_theme()
+	print_title(
+		"",
+		"Uninstalling Cursor Theme"
+	)
+	local user = get_user()
+	local installation_directory = get_installation_directory(user)
+	os.execute(
+		"rm -rf " ..
+		installation_directory ..
+		"/" ..
+		cursor_theme.name
+	)
+	print_topic(
+		"\t",
+		"Uninstalled cursor theme at " ..
+		highlight(
+			installation_directory ..
+			"/" ..
+			cursor_theme.name
+		) ..
+		"."
+	)
+end
+
 local function main()
 	if (arg[1] == "build") then
 		build_cursor_theme()
 	elseif (arg[1] == "install") then
 		install_cursor_theme()
+	elseif (arg[1] == "uninstall") then
+		uninstall_cursor_theme()
 	else
 		print_usage_instructions()
 	end
