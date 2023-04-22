@@ -54,39 +54,17 @@ local function print_usage_instructions()
 		"Starting Point"
 	)
 	print(
-		"\t\tThis is a script to manage the build, install and uninstall of " ..
+		"\t\tThis is a script to manage the build of " ..
 		cursor_theme.name ..
 		"."
 	)
 	print("\t\tIt must be run from the root directory of the repository.")
-	print("\t\tFor it work, you must install the following dependencies:")
-	local dependencies = {
-		"xcursorgen"
-	}
-	for iterator =
-		1,
-		#dependencies
-	do
-		print_topic(
-			"\t\t\t",
-			highlight(dependencies[iterator]) ..
-			"."
-		)
-	end
 	print_title(
 		"\t",
 		"Syntax"
 	)
 	print("\t\tUse it with the following syntax:")
-	print("\t\t\t./wizard.lua [flags] <subcommand>")
-	print("\t\tThe flags it can accept are:")
-	print(
-		"\t\t\t" ..
-		highlight("-h") ..
-		" or " ..
-		highlight("--help") ..
-		": show these usage instructions."
-	)
+	print("\t\t\t./wizard.lua <subcommand>")
 	print("\t\tThe subcommands it can accept are:")
 	print(
 		"\t\t\t" ..
@@ -166,22 +144,10 @@ local function build_cursor_theme()
 end
 
 local function main()
-	if (
-		arg[1] == "-h" or
-		arg[1] == "--help"
-	) then
-		print_usage_instructions()
-	elseif (arg[1] == "build") then
+	if (arg[1] == "build") then
 		build_cursor_theme()
 	else
-		print_error("no flag or argument used.")
-		print(
-			"Use " ..
-			highlight("-h") ..
-			" or " ..
-			highlight("--help") ..
-			" to show usage instructions."
-		)
+		print_usage_instructions()
 	end
 end
 
