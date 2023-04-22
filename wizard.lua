@@ -44,6 +44,23 @@ local function highlight(text)
 	)
 end
 
+local function get_user()
+	local whoami_stream = io.popen("whoami")
+	local output = whoami_stream:read()
+	whoami_stream:close()
+	return (output)
+end
+
+local function get_installation_directory(user)
+	return (
+		user == "root" and
+		"/usr/share/icons" or
+		"/home/" ..
+		user ..
+		"/.local/share/icons"
+	)
+end
+
 local function print_usage_instructions()
 	print_title(
 		"",
@@ -71,6 +88,13 @@ local function print_usage_instructions()
 		highlight("build") ..
 		": builds the cursor theme and leave it available in your current directory."
 	)
+	print(
+		"\t\t\t" ..
+		highlight("install") ..
+		": builds and installs the cursor for your user."
+	)
+	print("\t\t\tIf you are root, the installation will be at /usr/share/icons.")
+	print("\t\t\tIf you are a normal user, the installation will be at ${HOME}/.local/share/icons.")
 end
 
 local function create_directory_structure()
@@ -143,9 +167,50 @@ local function build_cursor_theme()
 	return
 end
 
+local function install_cursor_theme()
+	build_cursor_theme()
+	print_title(
+		"",
+		"Installing Cursor Theme"
+	)
+	local user = get_user()
+	local installation_directory = get_installation_directory(user)
+	os.execute(
+		"mkdir -p " ..
+		installation_directory
+	)
+	os.execute(
+		"rm -rf " ..
+		installation_directory ..
+		"/" ..
+		cursor_theme.name
+	)
+	os.execute(
+		"mv ./" ..
+		cursor_theme.name ..
+		" " ..
+		installation_directory ..
+		"/" ..
+		cursor_theme.name
+	)
+	print_topic(
+		"\t",
+		"Installed cursor theme at " ..
+		highlight(
+			installation_directory ..
+			"/" ..
+			cursor_theme.name
+		) ..
+		"."
+	)
+	return
+end
+
 local function main()
 	if (arg[1] == "build") then
 		build_cursor_theme()
+	elseif (arg[1] == "install") then
+		install_cursor_theme()
 	else
 		print_usage_instructions()
 	end
