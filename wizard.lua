@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
 
 local cursor_theme = {
-	name = "dragon_byte",
+	name = "dragon_byte"
 }
 
 local function print_title(
@@ -34,6 +34,7 @@ local function print_error(message)
 		"\x1b[1;31mOpsie!\x1b[0m " ..
 		message
 	)
+	return
 end
 
 local function highlight(text)
@@ -101,6 +102,7 @@ local function print_usage_instructions()
 		": uninstall the cursor for your user."
 	)
 	print("\t\t\tIt removes the installation directory used for an installation for your user.")
+	return
 end
 
 local function create_directory_structure()
@@ -235,6 +237,7 @@ local function uninstall_cursor_theme()
 		) ..
 		"."
 	)
+	return
 end
 
 local function main()
@@ -247,6 +250,7 @@ local function main()
 	else
 		print_usage_instructions()
 	end
+	return
 end
 
 main()
