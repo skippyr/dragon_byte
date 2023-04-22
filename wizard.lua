@@ -149,7 +149,7 @@ end
 local function create_cursor_files()
 	print_topic(
 		"\t",
-		"Creating cursor files."
+		"Creating cursor files:"
 	)
 	local settings_directory_stream = io.popen("ls -A ./settings")
 	for settings_file in settings_directory_stream:lines() do
@@ -172,6 +172,50 @@ local function create_cursor_files()
 	return
 end
 
+local function create_symbolic_links()
+	print_topic(
+		"\t",
+		"Creating symbolic links:"
+	)
+	local symbolic_links = {
+		{
+			origin = "hand2",
+			destination = {
+				"help",
+				"context-menu",
+				"copy"
+			}
+		}
+	}
+	for symbolic_link_iterator =
+		1,
+		#symbolic_links
+	do
+		for destination_iterator =
+			1,
+			#symbolic_links[symbolic_link_iterator].destination
+		do
+			os.execute(
+				"ln -sf " ..
+				symbolic_links[symbolic_link_iterator].origin ..
+				" " ..
+				"./" ..
+				cursor_theme.name ..
+				"/cursors/" ..
+				symbolic_links[symbolic_link_iterator].destination[destination_iterator]
+			)
+			print_topic(
+				"\t\t",
+				"Created symbolic link between " ..
+				highlight(symbolic_links[symbolic_link_iterator].origin) ..
+				" and " ..
+				highlight(symbolic_links[symbolic_link_iterator].destination[destination_iterator]) ..
+				"."
+			)
+		end
+	end
+end
+
 local function build_cursor_theme()
 	print_title(
 		"",
@@ -180,6 +224,7 @@ local function build_cursor_theme()
 	create_directory_structure()
 	create_metadata_files()
 	create_cursor_files()
+	create_symbolic_links()
 	print(
 		"\tCursor is available in the current directory as the directory " ..
 		highlight(cursor_theme.name) ..
