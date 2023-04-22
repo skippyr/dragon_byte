@@ -82,7 +82,11 @@ local function print_usage_instructions()
 		"Syntax"
 	)
 	print("\t\tUse it with the following syntax:")
-	print("\t\t\t./wizard.lua <subcommand>")
+	print(
+		"\t\t\t" ..
+		highlight("./wizard.lua") ..
+		" <subcommand>"
+	)
 	print("\t\tThe subcommands it can accept are:")
 	print(
 		"\t\t\t" ..
@@ -133,7 +137,11 @@ local function create_metadata_files()
 		"/index.theme",
 		"w"
 	)
-	index_file_stream:write("hello")
+	index_file_stream:write(
+		"[Icon Theme]\nName=" ..
+		cursor_theme.name ..
+		"\n"
+	)
 	index_file_stream:close()
 	return
 end
@@ -156,7 +164,7 @@ local function create_cursor_files()
 		print_topic(
 			"\t\t",
 			"Created cursor file " ..
-			settings_file ..
+			highlight(settings_file) ..
 			"."
 		)
 	end
@@ -172,6 +180,11 @@ local function build_cursor_theme()
 	create_directory_structure()
 	create_metadata_files()
 	create_cursor_files()
+	print(
+		"\tCursor is available in the current directory as the directory " ..
+		highlight(cursor_theme.name) ..
+		"."
+	)
 	return
 end
 
@@ -211,6 +224,7 @@ local function install_cursor_theme()
 		) ..
 		"."
 	)
+	print("\tThe cursor build has been moved to the installation directory.")
 	return
 end
 
