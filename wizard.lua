@@ -179,11 +179,27 @@ local function create_symbolic_links()
 	)
 	local symbolic_links = {
 		{
+			origin = "left_ptr",
+			destination = {
+				"pointing_hand",
+				"pointer"
+			}
+		},
+		{
+			origin = "xterm",
+			destination = {
+				"text"
+			}
+		},
+		{
 			origin = "hand2",
 			destination = {
+				"hand",
+				"hand1",
 				"help",
 				"context-menu",
-				"copy"
+				"copy",
+				"alias"
 			}
 		}
 	}
