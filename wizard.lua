@@ -214,6 +214,7 @@ local function create_symbolic_links()
 			)
 		end
 	end
+	return
 end
 
 local function build_cursor_theme()
