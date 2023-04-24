@@ -1,6 +1,6 @@
 <h1>Dragon Byte</h1>
 	<h2>Starting Point</h2>
-		<p>My 32x32 cursor for X11 with a custom character that I drew.</p>
+		<p>My 32x32 cursor for X11 with a dragon.</p>
 		<table>
 			<thead>
 				<tr>
@@ -12,14 +12,6 @@
 				<tr>
 					<td>left_ptr</td>
 					<td><img src="./source_images/left_ptr.png"/></td>
-				</tr>
-				<tr>
-					<td>xterm</td>
-					<td><img src="./source_images/xterm.png"/></td>
-				</tr>
-				<tr>
-					<td>hand2</td>
-					<td><img src="./source_images/hand2.png"/></td>
 				</tr>
 			</body>
 		</table>
