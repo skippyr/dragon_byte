@@ -183,13 +183,19 @@ local function create_symbolic_links()
 			destination = {
 				"pointing_hand",
 				"pointer",
-				"hand2",
 			}
 		},
 		{
 			origin = "xterm",
 			destination = {
 				"text"
+			}
+		},
+		{
+			origin = "hand2",
+			destination = {
+				"hand",
+				"hand1"
 			}
 		}
 	}
