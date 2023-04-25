@@ -229,6 +229,18 @@ local function create_symbolic_links()
 				"row-resize",
 				"sb_v_double_arrow"
 			}
+		},
+		{
+			origin = "ew-resize",
+			destination = {
+				"left_side",
+				"right_side",
+				"e-resize",
+				"w-resize",
+				"split_h",
+				"col-resize",
+				"sb_h_double_arrow"
+			}
 		}
 	}
 	for symbolic_link_iterator =

@@ -59,6 +59,12 @@
 					<td><img src="./source_images/ns-resize.png"/></td>
 					<td>(21, 21)</td>
 				</tr>
+				<tr>
+					<td>ew-resize</td>
+					<td><code>--dragon-byte-ew-resize</code></td>
+					<td><img src="./source_images/ew-resize.png"/></td>
+					<td>(21, 21)</td>
+				</tr>
 			</body>
 		</table>
 	<h2>Installation And Usage</h2>

@@ -24,4 +24,7 @@
 	--dragon-byte-ns-resize:
 		url("./dragon_byte/source_images/ns-resize.png") 21 21,
 		ns-resize;
+	--dragon-byte-ew-resize:
+		url("./dragon_byte/source_images/ew-resize.png") 21 21,
+		ew-resize;
 }
