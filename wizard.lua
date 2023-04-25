@@ -217,6 +217,18 @@ local function create_symbolic_links()
 			destination = {
 				"no-drop"
 			}
+		},
+		{
+			origin = "ns-resize",
+			destination = {
+				"top_side",
+				"bottom_side",
+				"n-resize",
+				"s-resize",
+				"split_v",
+				"row-resize",
+				"sb_v_double_arrow"
+			}
 		}
 	}
 	for symbolic_link_iterator =

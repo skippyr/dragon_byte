@@ -21,4 +21,7 @@
 	--dragon-byte-vertical-text:
 		url("./dragon_byte/source_images/vertical-text.png") 21 21,
 		vertical-text;
+	--dragon-byte-ns-resize:
+		url("./dragon_byte/source_images/ns-resize.png") 21 21,
+		ns-resize;
 }
