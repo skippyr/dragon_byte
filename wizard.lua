@@ -197,6 +197,13 @@ local function create_symbolic_links()
 				"hand",
 				"hand1"
 			}
+		},
+		{
+			origin = "help",
+			destination = {
+				"alias",
+				"context-menu"
+			}
 		}
 	}
 	for symbolic_link_iterator =
