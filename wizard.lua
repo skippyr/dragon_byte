@@ -201,8 +201,15 @@ local function create_symbolic_links()
 		{
 			origin = "help",
 			destination = {
-				"alias",
-				"context-menu"
+				"context-menu",
+				"question_arrow"
+			}
+		},
+		{
+			origin = "link",
+			destination = {
+				"copy",
+				"alias"
 			}
 		}
 	}

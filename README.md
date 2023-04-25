@@ -14,16 +14,20 @@
 					<td><img src="./source_images/left_ptr.png"/></td>
 				</tr>
 				<tr>
-					<td>xterm</td>
-					<td><img src="./source_images/xterm.png"/></td>
-				</tr>
-				<tr>
 					<td>hand2</td>
 					<td><img src="./source_images/hand2.png"/></td>
 				</tr>
 				<tr>
+					<td>link</td>
+					<td><img src="./source_images/link.png"/></td>
+				</tr>
+				<tr>
 					<td>help</td>
 					<td><img src="./source_images/help.png"/></td>
+				</tr>
+				<tr>
+					<td>xterm</td>
+					<td><img src="./source_images/xterm.png"/></td>
 				</tr>
 			</body>
 		</table>
