@@ -182,26 +182,12 @@ local function create_symbolic_links()
 			origin = "left_ptr",
 			destination = {
 				"pointing_hand",
-				"pointer"
-			}
-		},
-		{
-			origin = "xterm",
-			destination = {
+				"pointer",
+				"xterm",
+				"hand2",
 				"text"
 			}
 		},
-		{
-			origin = "hand2",
-			destination = {
-				"hand",
-				"hand1",
-				"help",
-				"context-menu",
-				"copy",
-				"alias"
-			}
-		}
 	}
 	for symbolic_link_iterator =
 		1,
