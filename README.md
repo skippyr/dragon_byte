@@ -13,6 +13,10 @@
 					<td>left_ptr</td>
 					<td><img src="./source_images/left_ptr.png"/></td>
 				</tr>
+				<tr>
+					<td>xterm</td>
+					<td><img src="./source_images/xterm.png"/></td>
+				</tr>
 			</body>
 		</table>
 	<h2>Installation And Usage</h2>
