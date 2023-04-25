@@ -1,10 +1,24 @@
 :root
 {
-	--dragon-byte-default: url("./source_images/left_ptr.png") 5 2, default;
-	--dragon-byte-pointer: url("./source_images/hand2.png") 5 2, pointer;
-	--dragon-byte-copy: url("./source_images/link.png") 5 2, copy;
-	--dragon-byte-help: url("./source_images/help.png") 5 2, help;
-	--dragon-byte-not-allowed: url("./source_images/not-allowed.png") 5 2, not-allowed;
-	--dragon-byte-text: url("./source_images/xterm.png") 21 21, text;
-	--dragon-byte-vertical-text: url("./source_images/xterm.png") 21 21, vertical-text;
+	--dragon-byte-default:
+		url("./dragon_byte/source_images/left_ptr.png") 5 2,
+		default;
+	--dragon-byte-pointer:
+		url("./dragon_byte/source_images/hand2.png") 5 2,
+		pointer;
+	--dragon-byte-copy:
+		url("./dragon_byte/source_images/link.png") 5 2,
+		copy;
+	--dragon-byte-help:
+		url("./dragon_byte/source_images/help.png") 5 2,
+		help;
+	--dragon-byte-not-allowed:
+		url("./dragon_byte/source_images/not-allowed.png") 5 2,
+		not-allowed;
+	--dragon-byte-text:
+		url("./dragon_byte/source_images/xterm.png") 21 21,
+		text;
+	--dragon-byte-vertical-text:
+		url("./dragon_byte/source_images/xterm.png") 21 21,
+		vertical-text;
 }

@@ -92,22 +92,20 @@
 			<ul>
 				<li>Download this repository to a directory in your web page project. If you have <code>git</code> installed, you can use it in the following command:</li>
 				<pre><code>git clone --depth 1 https://github.com/skippyr/dragon_byte</code></pre>
-				<p>This command will clone this repository to the directory <code>dragon_byte</code> in your current directory, but feel free to change to whatever directory you want to by adding it to the end of the command, just remember it because you will need it for the next step. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit tree.</p>
-				<p>Alternatively, you can use a <code>submodule</code>. This way will allow you to manage new commits for this cursor theme project.</p>
+				<p>This command will clone this repository to the directory <code>dragon_byte</code> in your current directory, but feel free to change to whatever directory you want to by adding it to the end of the command. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit tree.</p>
+				<p>Alternatively, you can use a submodule. This will allow you to manage that repository easily and update in case of new commits.</p>
 				<p>If you do not have <code>git</code> installed, you can download this repository from its page on GitHub. Access that page, click on the <code>Code</code> button on the top of the page, then click on <code>Download ZIP</code>. This will download a ZIP file containing the repository, you just have to unzip it and move to the path you want it to be.</p>
-				<li>Import the CSS variables with the properties of the cursor in your main CSS file of your web page.</li>
-				<pre><code>@import url("./dragon_byte/dragon_byte.css");</pre></code>
-				<p>If you have chosen a different directory when downloaded the repository, you must replace the path used in the rule above by the relative path of the directory you chose.</p>
-				<li>In your web page container elements, apply the variable of the cursor you want to. In this example, the <code>pointer</code> cursor is applied to the <code>main</code> element:</li>
+				<li>Create a stylesheet file in which you will apply the cursor properties to your CSS elements.</li>
+				<li>Copy the variable definitions of the file <code>dragon_byte.css</code> of this repository to the stylesheet file that you have created. In this step, you will need to update the relative paths used in those variables to match the location of the cursor image files based on the location of your stylesheet file. If you do not do this correctly, the images will not be found and the cursor will not be applied.</li>
+				<p>After doing this step, you will have created the variables to use with the CSS <code>cursor</code> property, you just have to apply it to the elements that you want using CSS rules in that same file. Just as a simple example, this code applies the <code>pointer</code> cursor to the <code>main</code> element:</p>
 				<pre><code>
 main
 {
 	cursor: var(--dragon-byte-pointer);
 }
 				</pre></code>
-				<p>In CSS, you can not define a cursor property to the <code>body</code> element.</p>
-				<p>The variables available are the ones shown in the preview table in the start of this document, but you can also read them in the file you imported.</p>
-				<p>As you will be embedding my project into yours, you will need to refer to its license. For that, please refer to the License section.</p>
+				<li>Import the stylesheet file you created in your HTML pages to apply the cursor properties that you have defined.</li>
+				<p>As you will have to embed my project into yours, you will need to refer to its license. For that, please refer to the License section.</p>
 			</ul>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
