@@ -211,6 +211,12 @@ local function create_symbolic_links()
 				"copy",
 				"alias"
 			}
+		},
+		{
+			origin = "not-allowed",
+			destination = {
+				"no-drop"
+			}
 		}
 	}
 	for symbolic_link_iterator =

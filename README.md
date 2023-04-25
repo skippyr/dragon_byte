@@ -26,6 +26,10 @@
 					<td><img src="./source_images/help.png"/></td>
 				</tr>
 				<tr>
+					<td>not-allowed</td>
+					<td><img src="./source_images/not-allowed.png"/></td>
+				</tr>
+				<tr>
 					<td>xterm</td>
 					<td><img src="./source_images/xterm.png"/></td>
 				</tr>
