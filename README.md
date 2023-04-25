@@ -88,7 +88,7 @@
 				<p>The cursor files will be available in a directory called <code>dragon_byte</code> in your current directory.</p>
 			</ul>
 		<h3>For Web Page</h3>
-			<p>In this section, you will learn how to embed this cursor theme in a web page using CSS.</p>
+			<p>In this section, you will learn how to embed this cursor theme in a web page using CSS. As you will need to manipulate relative paths manually, this process may sound a bit tricky at first.</p>
 			<ul>
 				<li>Download this repository to a directory in your web page project. If you have <code>git</code> installed, you can use it in the following command:</li>
 				<pre><code>git clone --depth 1 https://github.com/skippyr/dragon_byte</code></pre>
@@ -105,6 +105,11 @@ main
 }
 				</pre></code>
 				<li>Import the stylesheet file that you created in your HTML pages to apply the cursor properties that you have defined.</li>
+				<p>This process will allow you to avoid having to copy that variable definitions to every new stylesheet that you may need for your pages and having to change their relative paths again, by gathering every cursor property in just one file. There are other ways you can import this cursor theme in your web page, but this was the easiest way I have found to teach you. You can learn more about it in these reference materials:</p>
+					<ul>
+						<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor">(MDN Web Docs) Learn How To Use The CSS cursor property.</a></li>
+						<li><a href="https://www.youtube.com/watch?v=FOC5RZHK_Gw">(YouTube - Leanne R) Learn How To Use PNG/SVG As Custom Cursor Using CSS.</a></li>
+					</ul>
 				<p>You can preview the cursor theme and view the available variables to use in the preview table in the start of this document.</p>
 				<p>As you will have to embed my project into yours, you will need to refer to its license. For that, please refer to the License section.</p>
 			</ul>
