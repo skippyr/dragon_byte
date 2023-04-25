@@ -4,38 +4,54 @@
 		<table>
 			<thead>
 				<tr>
-					<td>Name</td>
+					<td>X11 Name</td>
+					<td>CSS Name</td>
 					<td>Preview</td>
+					<td>Hotspot Coordinate</td>
 				</tr>
 			</thead>
 			<body>
 				<tr>
 					<td>left_ptr</td>
+					<td>default</td>
 					<td><img src="./source_images/left_ptr.png"/></td>
+					<td>(5, 2)</td>
 				</tr>
 				<tr>
 					<td>hand2</td>
+					<td>pointer</td>
 					<td><img src="./source_images/hand2.png"/></td>
+					<td>(5, 2)</td>
 				</tr>
 				<tr>
 					<td>link</td>
+					<td>copy</td>
 					<td><img src="./source_images/link.png"/></td>
+					<td>(5, 2)</td>
 				</tr>
 				<tr>
 					<td>help</td>
+					<td>help</td>
 					<td><img src="./source_images/help.png"/></td>
+					<td>(5, 2)</td>
 				</tr>
 				<tr>
 					<td>not-allowed</td>
+					<td>not-allowed</td>
 					<td><img src="./source_images/not-allowed.png"/></td>
+					<td>(5, 2)</td>
 				</tr>
 				<tr>
 					<td>xterm</td>
+					<td>text</td>
 					<td><img src="./source_images/xterm.png"/></td>
+					<td>(21, 21)</td>
 				</tr>
 				<tr>
 					<td>vertical-text</td>
+					<td>vertical-text</td>
 					<td><img src="./source_images/vertical-text.png"/></td>
+					<td>(21, 21)</td>
 				</tr>
 			</body>
 		</table>
