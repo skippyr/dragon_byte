@@ -1,6 +1,6 @@
 <h1>Dragon Byte</h1>
 	<h2>Starting Point</h2>
-		<p>My 32x32 cursor for X11 with a dragon.</p>
+		<p>My 42x42 cursor for X11 with a dragon.</p>
 		<table>
 			<thead>
 				<tr>
