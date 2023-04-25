@@ -104,7 +104,8 @@ main
 	cursor: var(--dragon-byte-pointer);
 }
 				</pre></code>
-				<li>Import the stylesheet file you created in your HTML pages to apply the cursor properties that you have defined.</li>
+				<li>Import the stylesheet file that you created in your HTML pages to apply the cursor properties that you have defined.</li>
+				<p>You can preview the cursor theme and view the available variables to use in the preview table in the start of this document.</p>
 				<p>As you will have to embed my project into yours, you will need to refer to its license. For that, please refer to the License section.</p>
 			</ul>
 	<h2>Issues And Contributions</h2>
