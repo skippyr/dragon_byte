@@ -93,6 +93,7 @@
 				<li>Download this repository to a directory in your web page project. If you have <code>git</code> installed, you can use it in the following command:</li>
 				<pre><code>git clone --depth 1 https://github.com/skippyr/dragon_byte</code></pre>
 				<p>This command will clone this repository to the directory <code>dragon_byte</code> in your current directory, but feel free to change to whatever directory you want to by adding it to the end of the command, just remember it because you will need it for the next step. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit tree.</p>
+				<p>Alternatively, you can use a <code>submodule</code>. This way will allow you to manage new commits for this cursor theme project.</p>
 				<p>If you do not have <code>git</code> installed, you can download this repository from its page on GitHub. Access that page, click on the <code>Code</code> button on the top of the page, then click on <code>Download ZIP</code>. This will download a ZIP file containing the repository, you just have to unzip it and move to the path you want it to be.</p>
 				<li>Import the CSS variables with the properties of the cursor in your main CSS file of your web page.</li>
 				<pre><code>@import url("./dragon_byte/dragon_byte.css");</pre></code>
@@ -106,6 +107,7 @@ main
 				</pre></code>
 				<p>In CSS, you can not define a cursor property to the <code>body</code> element.</p>
 				<p>The variables available are the ones shown in the preview table in the start of this document, but you can also read them in the file you imported.</p>
+				<p>As you will be embedding my project into yours, you will need to refer to its license. For that, please refer to the License section.</p>
 			</ul>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
