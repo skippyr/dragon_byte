@@ -21,6 +21,10 @@
 					<td>hand2</td>
 					<td><img src="./source_images/hand2.png"/></td>
 				</tr>
+				<tr>
+					<td>help</td>
+					<td><img src="./source_images/help.png"/></td>
+				</tr>
 			</body>
 		</table>
 	<h2>Installation And Usage</h2>
