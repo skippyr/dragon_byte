@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<td>help</td>
-					<td><code>--dragon-byte-copy</code></td>
+					<td><code>--dragon-byte-help</code></td>
 					<td><img src="./source_images/help.png"/></td>
 					<td>(5, 2)</td>
 				</tr>
