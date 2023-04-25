@@ -182,7 +182,7 @@ local function create_symbolic_links()
 			origin = "left_ptr",
 			destination = {
 				"pointing_hand",
-				"pointer",
+				"pointer"
 			}
 		},
 		{
