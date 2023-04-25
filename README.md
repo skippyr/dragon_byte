@@ -53,13 +53,21 @@
 			<p>This command will clone this repository to the directory <code>dragon_byte</code> in your current directory, but feel free to change to whatever directory you want to by adding it to the end of the command. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit tree.</p>
 			<p>If you do not have <code>git</code> installed, you can download this repository from its page on GitHub. Access that page, click on the <code>Code</code> button on the top of the page, then click on <code>Download ZIP</code>. This will download a ZIP file containing the repository, you just have to unzip it and move to the path you want it to be.</p>
 			<li>Access the repository's directory.</li>
-			<li>Install the cursor theme for your user using <code>./wizard.lua</code>.</li>
+			<pre><code>cd dragon_byte</code></pre>
+			<li>Use the wizard script <code>wizard.lua</code> without any arguments to see its usage instructions.</li>
+			<pre><code>./wizard.lua</code></pre>
+			<li>To install the cursor theme for your user, use it with the subcommand <code>install</code>:</li>
 			<pre><code>./wizard.lua install</code></pre>
-			<p>For a system wide installation, use the same command with sudo privileges.</p>
-			<li>Apply the cursor theme using an icons management tool, such as <code>lxappearance</code> or by using Xresources rules. You may have to restart X11 for your changes to be properly set.</li>
-			<p>At any point you can uninstall the cursor theme for your user using the same script, <code>wizard.lua</code>:</p>
+			<p>If you run the script as the <code>root</code> user, installation is performed in a system wide scope, at <code>/usr/share/icons</code>.</p>
+			<p>If you run the script as a normal user, installation is performed for your current user only, at <code>${HOME}/.local/share/icons</code>.
+			<li>After installing the cursor, you will need to apply it. You can do it using an icons management tool like <code>Cursors</code> for KDE, <code>Gnome Tweaks</code> for Gnome, <code>lxappearance</code> for others, or even using the X11 resources file <code>~/.Xresources</code>.</li>
+			<li>At any point you can uninstall the cursor theme for your user using the same script, this time with the subcommand <code>uninstall</code>.
 			<pre><code>./wizard.lua uninstall</code></pre>
-			<p>For a system wide uninstallation, use the same command with sudo privileges.</p>
+			<p>This command will remove the cursor theme from the same directory used in the installation for your user.</p>
+			<li>If you want to build and analyze the cursors, you can use that same script with the subcommand <code>build</code>.</p>
+			<pre><code>./wizard.lua build</code></pre>
+			<p>The cursor will be available in a directory called <code>dragon_byte</code> in your current directory.</p>
+			<p>Further more, you can be creative. As this cursor uses a permissive license and is available through PNG and Gimp files, you can customize it as you want and embed it in other places than X11 like in a web page, for example. To get more information about the license used in this project, please refer to the License section.</p>
 		</ul>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
