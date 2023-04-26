@@ -33,5 +33,8 @@
 	--dragon-byte-nwse-resize:
 		url("./dragon_byte/source_images/nwse-resize.png") 21 21,
 		nwse-resize;
+	--dragon-byte-all-scroll:
+		url("./dragon_byte/source_images/all-scroll.png") 21 21,
+		all-scroll;
 }
 

@@ -77,6 +77,12 @@
 					<td><img src="./source_images/nwse-resize.png"/></td>
 					<td>(21, 21)</td>
 				</tr>
+				<tr>
+					<td>all-scroll</td>
+					<td><code>--dragon-byte-all-scroll</code></td>
+					<td><img src="./source_images/all-scroll.png"/></td>
+					<td>(21, 21)</td>
+				</tr>
 			</body>
 		</table>
 	<h2>Installation And Usage</h2>

@@ -261,6 +261,15 @@ local function create_symbolic_links()
 				"top_left_corner",
 				"bottom_right_corner"
 			}
+		},
+		{
+			origin = "all-scroll",
+			destination = {
+				"fleur",
+				"cell",
+				"move",
+				"crosshair"
+			}
 		}
 	}
 	for symbolic_link_iterator =
