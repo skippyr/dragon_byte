@@ -256,7 +256,8 @@ local function create_symbolic_links()
 				"ne-resize",
 				"sw-resize",
 				"top_right_corner",
-				"bottom_left_corner"
+				"bottom_left_corner",
+				"size_bdiag"
 			}
 		},
 		{
@@ -265,7 +266,8 @@ local function create_symbolic_links()
 				"nw-resize",
 				"se-resize",
 				"top_left_corner",
-				"bottom_right_corner"
+				"bottom_right_corner",
+				"size_fdiag"
 			}
 		},
 		{
