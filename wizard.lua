@@ -278,7 +278,15 @@ local function create_symbolic_links()
 				"grabbing",
 				"closedhand",
 				"dnd-move",
-				"cross"
+				"cross",
+				"plus"
+			}
+		},
+		{
+			origin = "watch",
+			destination = {
+				"wait",
+				"progress"
 			}
 		}
 	}

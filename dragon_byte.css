@@ -6,6 +6,9 @@
 	--dragon-byte-pointer:
 		url("./dragon_byte/source_images/hand2.png") 5 2,
 		pointer;
+	--dragon-byte-wait:
+		url("./dragon_byte/source_images/watch.png") 5 2,
+		wait;
 	--dragon-byte-copy:
 		url("./dragon_byte/source_images/link.png") 5 2,
 		copy;

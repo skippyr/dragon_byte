@@ -24,6 +24,12 @@
 					<td>(5, 2)</td>
 				</tr>
 				<tr>
+					<td>watch</td>
+					<td><code>--dragon-byte-wait</code></td>
+					<td><img src="./source_images/watch.png"/></td>
+					<td>(5, 2)</td>
+				</tr>
+				<tr>
 					<td>link</td>
 					<td><code>--dragon-byte-copy</code></td>
 					<td><img src="./source_images/link.png"/></td>
