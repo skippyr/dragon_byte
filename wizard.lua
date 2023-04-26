@@ -195,27 +195,33 @@ local function create_symbolic_links()
 			origin = "hand2",
 			destination = {
 				"hand",
-				"hand1"
+				"hand1",
+				"grab",
+				"openhand"
 			}
 		},
 		{
 			origin = "help",
 			destination = {
 				"context-menu",
-				"question_arrow"
+				"question_arrow",
+				"dnd-ask"
 			}
 		},
 		{
 			origin = "link",
 			destination = {
 				"copy",
-				"alias"
+				"alias",
+				"dnd-copy"
 			}
 		},
 		{
 			origin = "not-allowed",
 			destination = {
-				"no-drop"
+				"no-drop",
+				"dnd-no-drop",
+				"dnd-none"
 			}
 		},
 		{
@@ -268,7 +274,10 @@ local function create_symbolic_links()
 				"fleur",
 				"cell",
 				"move",
-				"crosshair"
+				"crosshair",
+				"grabbing",
+				"closedhand",
+				"dnd-move"
 			}
 		}
 	}
