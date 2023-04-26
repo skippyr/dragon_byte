@@ -48,6 +48,18 @@
 					<td>(5, 2)</td>
 				</tr>
 				<tr>
+					<td>zoom-in</td>
+					<td><code>--dragon-byte-zoom-in</code></td>
+					<td><img src="./source_images/zoom-in.png"/></td>
+					<td>(5, 2)</td>
+				</tr>
+				<tr>
+					<td>zoom-out</td>
+					<td><code>--dragon-byte-zoom-out</code></td>
+					<td><img src="./source_images/zoom-out.png"/></td>
+					<td>(5, 2)</td>
+				</tr>
+				<tr>
 					<td>xterm</td>
 					<td><code>--dragon-byte-text</code></td>
 					<td><img src="./source_images/xterm.png"/></td>

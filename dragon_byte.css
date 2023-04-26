@@ -18,6 +18,12 @@
 	--dragon-byte-not-allowed:
 		url("./dragon_byte/source_images/not-allowed.png") 5 2,
 		not-allowed;
+	--dragon-byte-zoom-in:
+		url("./dragon_byte/source_images/zoom-in.png") 5 2,
+		zoom-in;
+	--dragon-byte-zoom-out:
+		url("./dragon_byte/source_images/zoom-out.png") 5 2,
+		zoom-out;
 	--dragon-byte-text:
 		url("./dragon_byte/source_images/xterm.png") 21 21,
 		text;
