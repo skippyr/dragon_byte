@@ -227,7 +227,8 @@ local function create_symbolic_links()
 				"s-resize",
 				"split_v",
 				"row-resize",
-				"sb_v_double_arrow"
+				"sb_v_double_arrow",
+				"size_ver"
 			}
 		},
 		{
@@ -239,7 +240,8 @@ local function create_symbolic_links()
 				"w-resize",
 				"split_h",
 				"col-resize",
-				"sb_h_double_arrow"
+				"sb_h_double_arrow",
+				"size_hor"
 			}
 		}
 	}
