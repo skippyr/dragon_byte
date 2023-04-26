@@ -281,14 +281,17 @@ local function create_symbolic_links()
 				"closedhand",
 				"dnd-move",
 				"cross",
-				"plus"
+				"plus",
+				"size_all"
 			}
 		},
 		{
 			origin = "watch",
 			destination = {
 				"wait",
-				"progress"
+				"progress",
+				"half-busy",
+				"left_ptr_watch"
 			}
 		}
 	}
