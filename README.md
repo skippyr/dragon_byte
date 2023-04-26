@@ -134,6 +134,34 @@
 				<li>If you want to build and analyze the cursor files yourself, you can use that same script with the subcommand <code>build</code>.</p>
 				<pre><code>./wizard.lua build</code></pre>
 				<p>The cursor files will be available in a directory called <code>dragon_byte</code> in your current directory.</p>
+				<p>As each application running in X11 can have their own choices of cursor theme, it is actually common to have an issue: after applying the cursor, you can not see it correctly inside an application, specially those from Snap. If you are having this issue, in the rest of this section I will discuss possible solutions for it:</p>
+				<ul>
+					<li>Remove auto-generated GTK settings file:</li>
+					<p>Those files can containing rules to overwrite your current cursor theme inside GTK applications.</p>
+					<pre><code>rm -rf ~/gtkrc* ~/.config/{gtkrc*,gtk*} </code></pre>
+					<p>This command removes any matches for GTK configuration files and directories for your current user. Restart those application to see if it fixes them.</p>
+					<li>Replace the default X11 cursor theme by a correct symbolic link:</li>
+					<p>The default X11 cursor is normally used by Snap applications and may overwrite your current cursor theme.</p>
+					<p>To solve it, you first need to start removing those default cursor themes:</p>
+						<ul>
+							<li>For your current user:</li>
+							<pre><code>rm -rf ~/.icons/default</code></pre>
+							<li>For system wide (needs sudo privileges):
+							<pre><code>rm -rf /usr/share/icons/default</code></pre>
+						</ul>
+					<p>Then replace them by a symbolic link that points to the directory where your desired cursor theme is:</p>
+						<ul>
+							<li>For your current user:</li>
+							<p>As <code>~/.icons</code> may not exist, you may have to create it first.</p>
+							<pre><code>mkdir -p ~/.icons</code></pre>
+							<pre><code>ln -sf ${HOME}/.local/share/icons/dragon_byte ~/.icons/default</code></pre>
+							<li>For system wide (needs sudo privileges):
+							<pre><code>ln -sf /usr/share/icons/dragon_byte /usr/share/icons/default</code></pre>
+						</ul>
+					<p>If you have access to sudo privileges, it is better to use the system wide default X11 cursor theme and remove all other default cursor themes your users may have. Like this, everyone will use the same default cursor theme.</p>
+					<p>The directories used to create the symbolic links are the respective installation directories for those users: a normal one and <code>root</code>, when using the <code>wizard.lua</code> script. If, for some reason, you have installed this cursor theme in another path, you need to replace it in the commands.</p>
+					<p>After making those changes, restart X11 and see if it fixes the issue.</p>
+				</ul>
 			</ul>
 		<h3>For Web Page</h3>
 			<p>In this section, you will learn how to embed this cursor theme in a web page using CSS. As you will need to manipulate relative paths manually, this process may sound a bit tricky at first.</p>
