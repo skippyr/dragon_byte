@@ -252,6 +252,15 @@ local function create_symbolic_links()
 				"top_right_corner",
 				"bottom_left_corner"
 			}
+		},
+		{
+			origin = "nwse-resize",
+			destination = {
+				"nw-resize",
+				"se-resize",
+				"top_left_corner",
+				"bottom_right_corner"
+			}
 		}
 	}
 	for symbolic_link_iterator =

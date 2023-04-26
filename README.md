@@ -71,6 +71,12 @@
 					<td><img src="./source_images/nesw-resize.png"/></td>
 					<td>(21, 21)</td>
 				</tr>
+				<tr>
+					<td>nwse-resize</td>
+					<td><code>--dragon-byte-nwse-resize</code></td>
+					<td><img src="./source_images/nwse-resize.png"/></td>
+					<td>(21, 21)</td>
+				</tr>
 			</body>
 		</table>
 	<h2>Installation And Usage</h2>
