@@ -243,6 +243,15 @@ local function create_symbolic_links()
 				"sb_h_double_arrow",
 				"size_hor"
 			}
+		},
+		{
+			origin = "nesw-resize",
+			destination = {
+				"ne-resize",
+				"sw-resize",
+				"top_right_corner",
+				"bottom_left_corner"
+			}
 		}
 	}
 	for symbolic_link_iterator =

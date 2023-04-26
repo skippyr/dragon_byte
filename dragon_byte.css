@@ -27,4 +27,8 @@
 	--dragon-byte-ew-resize:
 		url("./dragon_byte/source_images/ew-resize.png") 21 21,
 		ew-resize;
+	--dragon-byte-nesw-resize:
+		url("./dragon_byte/source_images/nesw-resize.png") 21 21,
+		nesw-resize;
 }
+
