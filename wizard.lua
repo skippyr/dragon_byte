@@ -277,7 +277,8 @@ local function create_symbolic_links()
 				"crosshair",
 				"grabbing",
 				"closedhand",
-				"dnd-move"
+				"dnd-move",
+				"cross"
 			}
 		}
 	}
