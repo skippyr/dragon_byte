@@ -1,30 +1,8 @@
 import os
 import shutil
 
-def get_current_directory():
+def get_current_directory() -> str:
 	return os.path.dirname(__file__)
-
-class Cursor:
-	def __init__(
-		self,
-		properties
-	):
-		self._name = properties["name"]
-		self._output_directory = properties["output_directory"]
-		self._settings_directory = properties["settings_directory"]
-		self._symlink_pairs = properties["symlink_pairs"]
-
-	def get_name(self):
-		return self._name
-
-	def get_output_directory(self):
-		return self._output_directory
-	
-	def get_settings_directory(self):
-		return self._settings_directory
-	
-	def get_symlink_pairs(self):
-		return self._symlink_pairs
 
 class SymlinkPair:
 	def __init__(
@@ -34,18 +12,40 @@ class SymlinkPair:
 		self._source = properties["source"]
 		self._outcomes = properties["outcomes"]
 
-	def get_source(self):
+	def get_source(self) -> str:
 		return self._source
 
-	def get_outcomes(self):
+	def get_outcomes(self) -> list[str]:
 		return self._outcomes
+
+class Cursor:
+	def __init__(
+		self,
+		properties
+	):
+		self._name: str = properties["name"]
+		self._output_directory: str = properties["output_directory"]
+		self._settings_directory: str = properties["settings_directory"]
+		self._symlink_pairs: list[SymlinkPair] = properties["symlink_pairs"]
+
+	def get_name(self) -> str:
+		return self._name
+
+	def get_output_directory(self) -> str:
+		return self._output_directory
+	
+	def get_settings_directory(self) -> str:
+		return self._settings_directory
+	
+	def get_symlink_pairs(self) -> list[SymlinkPair]:
+		return self._symlink_pairs
 
 class CursorBuilder:
 	def __init__(
 		self,
 		properties
 	):
-		self._cursor = properties["cursor"]
+		self._cursor: Cursor = properties["cursor"]
 
 	def _create_cursor_output_directory(self):
 		shutil.rmtree(self._cursor.get_output_directory())
@@ -69,7 +69,7 @@ class CursorBuilder:
 		file.write(f"[Index Theme]\nName={self._cursor.get_name()}")
 		file.close()
 
-	def _get_settings_files(self):
+	def _get_settings_files(self) -> list[str]:
 		return os.listdir(self._cursor.get_settings_directory())
 
 	def _build_cursor_files(
