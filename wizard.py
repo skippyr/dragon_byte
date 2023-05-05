@@ -224,10 +224,13 @@ class Wizard:
 			self.__print_usage_instructions()
 		if self.__arguments_parser.is_to_build():
 			self.__cursor_builder.build()
+			print("Cursor has been build.")
 		if self.__arguments_parser.is_to_install():
 			self.__cursor_installer.install()
+			print("Cursor build has been installed.")
 		elif self.__arguments_parser.is_to_uninstall():
 			self.__cursor_installer.uninstall()
+			print("Cursor has been uninstalled.")
 
 def main() -> None:
 	Wizard({
