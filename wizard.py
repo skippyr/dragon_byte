@@ -10,7 +10,7 @@ class PathUtils:
 		return os.path.dirname(__file__)
 
 	@staticmethod
-	def remove_directory(path):
+	def remove_directory(path) -> None:
 		if os.path.isdir(path):
 			shutil.rmtree(path)
 
@@ -18,7 +18,7 @@ class SymlinkPair:
 	def __init__(
 		self,
 		properties
-	):
+	) -> None:
 		self.__source: str = properties["source"]
 		self.__outcomes: list[str] = properties["outcomes"]
 
@@ -32,7 +32,7 @@ class Cursor:
 	def __init__(
 		self,
 		properties
-	):
+	) -> None:
 		self.__name: str = properties["name"]
 		self.__output_directory: str = properties["output_directory"]
 		self.__settings_directory: str = properties["settings_directory"]
@@ -54,10 +54,10 @@ class CursorBuilder:
 	def __init__(
 		self,
 		properties
-	):
+	) -> None:
 		self.__cursor: Cursor = properties["cursor"]
 
-	def __create_cursor_output_directory(self):
+	def __create_cursor_output_directory(self) -> None:
 		PathUtils.remove_directory(self.__cursor.get_output_directory())
 		os.mkdir(self.__cursor.get_output_directory())
 		os.mkdir(
@@ -67,7 +67,7 @@ class CursorBuilder:
 			)
 		)
 
-	def __create_index_file(self):
+	def __write_index_file(self) -> None:
 		path = os.path.join(
 			self.__cursor.get_output_directory(),
 			"index.theme"
@@ -85,7 +85,7 @@ class CursorBuilder:
 	def __build_cursor_files(
 		self,
 		settings_files
-	):
+	) -> None:
 		for file in settings_files:
 			source_path = os.path.join(
 				self.__cursor.get_settings_directory(),
@@ -98,7 +98,7 @@ class CursorBuilder:
 			)
 			os.system(f"xcursorgen {source_path} > {output_path}")
 
-	def __create_symlink_pairs(self):
+	def __create_symlink_pairs(self) -> None:
 		for symlink_pair in self.__cursor.get_symlink_pairs():
 			for outcome in symlink_pair.get_outcomes():
 				outcome_path = os.path.join(
@@ -108,9 +108,9 @@ class CursorBuilder:
 				)
 				os.system(f"ln -sf {symlink_pair.get_source()} {outcome_path}")
 
-	def build(self):
+	def build(self) -> None:
 		self.__create_cursor_output_directory()
-		self.__create_index_file()
+		self.__write_index_file()
 		self.__build_cursor_files(self.__get_settings_files())
 		self.__create_symlink_pairs()
 
@@ -118,7 +118,7 @@ class CursorInstaller:
 	def __init__(
 		self,
 		properties
-	):
+	) -> None:
 		self.__cursor: Cursor = properties["cursor"]
 
 	def __is_user_root(self) -> bool:
@@ -135,10 +135,10 @@ class CursorInstaller:
 			self.__cursor.get_name()
 		))
 
-	def uninstall(self):
+	def uninstall(self) -> None:
 		PathUtils.remove_directory(self.__get_installation_directory())
 
-	def install(self):
+	def install(self) -> None:
 		self.uninstall()
 		os.system(f"mv {self.__cursor.get_output_directory()} {self.__get_installation_directory()}")
 
@@ -146,7 +146,7 @@ class ArgumentsParser:
 	def __init__(
 		self,
 		properties
-	):
+	) -> None:
 		self.__arguments: list[str] = properties["arguments"]
 
 	def has_enough_arguments(self) -> bool:
@@ -183,30 +183,27 @@ class ArgumentsParser:
 		)
 
 class PrettyPrinter:
-	@classmethod
-	def __to_red(
-		cls,
-		text
-	):
+	@staticmethod
+	def __to_red(text) -> str:
 		return f"\x1b[31m{text}\x1b[0m"
 
 	@classmethod
 	def print_title(
 		cls,
 		title
-	):
+	) -> None:
 		print(cls.__to_red(title))
 
 class Wizard:
 	def __init__(
 		self,
 		properties
-	):
+	) -> None:
 		self.__arguments_parser: ArgumentsParser = ArgumentsParser({ "arguments": properties["arguments"] })
 		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": properties["cursor"] })
 		self.__cursor_installer: CursorInstaller = CursorInstaller({ "cursor": properties["cursor"] })
 
-	def __print_usage_instructions(self):
+	def __print_usage_instructions(self) -> None:
 		PrettyPrinter.print_title("Usage Instructions")
 		PrettyPrinter.print_title("Starting Point")
 		print("\tThis is a script to manage the build, install and uninstall of the Dragon Byte cursor for X11.")
@@ -219,7 +216,7 @@ class Wizard:
 		print("\t\tinstall - builds and installs the cursor.")
 		print("\t\tuninstall - uninstall the cursor.")
 
-	def run(self):
+	def run(self) -> None:
 		if (
 			not self.__arguments_parser.has_enough_arguments() or
 			self.__arguments_parser.has_unrecognized_command()
@@ -232,7 +229,7 @@ class Wizard:
 		elif self.__arguments_parser.is_to_uninstall():
 			self.__cursor_installer.uninstall()
 
-def main():
+def main() -> None:
 	Wizard({
 		"arguments": sys.argv,
 		"cursor": Cursor({
