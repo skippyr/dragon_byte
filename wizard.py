@@ -1,4 +1,5 @@
 import os
+import shutil
 
 def get_current_directory():
 	return os.path.dirname(__file__)
@@ -29,10 +30,14 @@ class CursorBuilder:
 		self._cursor = properties["cursor"]
 
 	def _create_cursor_output_directory(self):
-		try:
-			os.mkdir(self._cursor.get_output_directory())
-		except FileExistsError:
-			return
+		shutil.rmtree(self._cursor.get_output_directory())
+		os.mkdir(self._cursor.get_output_directory())
+		os.mkdir(
+			os.path.join(
+				self._cursor.get_output_directory(),
+				"cursors"
+			)
+		)
 
 	def _create_index_file(self):
 		path = os.path.join(
@@ -46,9 +51,29 @@ class CursorBuilder:
 		file.write(f"[Index Theme]\nName={self._cursor.get_name()}")
 		file.close()
 
+	def _get_settings_files(self):
+		return os.listdir(self._cursor.get_settings_directory())
+
+	def _build_cursor_files(
+		self,
+		settings_files
+	):
+		for file in settings_files:
+			source_path = os.path.join(
+				self._cursor.get_settings_directory(),
+				file
+			)
+			output_path = os.path.join(
+				self._cursor.get_output_directory(),
+				"cursors",
+				file
+			)
+			os.system(f"xcursorgen {source_path} > {output_path}")
+
 	def build(self):
 		self._create_cursor_output_directory()
 		self._create_index_file()
+		self._build_cursor_files(self._get_settings_files())
 
 def main():
 	dragon_byte = Cursor({
