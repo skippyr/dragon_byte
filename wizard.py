@@ -10,141 +10,140 @@ class SymlinkPair:
 		self,
 		properties
 	):
-		self._source: str = properties["source"]
-		self._outcomes: list[str] = properties["outcomes"]
+		self.__source: str = properties["source"]
+		self.__outcomes: list[str] = properties["outcomes"]
 
 	def get_source(self) -> str:
-		return self._source
+		return self.__source
 
 	def get_outcomes(self) -> list[str]:
-		return self._outcomes
+		return self.__outcomes
 
 class Cursor:
 	def __init__(
 		self,
 		properties
 	):
-		self._name: str = properties["name"]
-		self._output_directory: str = properties["output_directory"]
-		self._settings_directory: str = properties["settings_directory"]
-		self._symlink_pairs: list[SymlinkPair] = properties["symlink_pairs"]
+		self.__name: str = properties["name"]
+		self.__output_directory: str = properties["output_directory"]
+		self.__settings_directory: str = properties["settings_directory"]
+		self.__symlink_pairs: list[SymlinkPair] = properties["symlink_pairs"]
 
 	def get_name(self) -> str:
-		return self._name
+		return self.__name
 
 	def get_output_directory(self) -> str:
-		return self._output_directory
+		return self.__output_directory
 	
 	def get_settings_directory(self) -> str:
-		return self._settings_directory
+		return self.__settings_directory
 	
 	def get_symlink_pairs(self) -> list[SymlinkPair]:
-		return self._symlink_pairs
+		return self.__symlink_pairs
 
 class CursorBuilder:
 	def __init__(
 		self,
 		properties
 	):
-		self._cursor: Cursor = properties["cursor"]
+		self.__cursor: Cursor = properties["cursor"]
 
-	def _create_cursor_output_directory(self):
-		shutil.rmtree(self._cursor.get_output_directory())
-		os.mkdir(self._cursor.get_output_directory())
+	def __create_cursor_output_directory(self):
+		shutil.rmtree(self.__cursor.get_output_directory())
+		os.mkdir(self.__cursor.get_output_directory())
 		os.mkdir(
 			os.path.join(
-				self._cursor.get_output_directory(),
+				self.__cursor.get_output_directory(),
 				"cursors"
 			)
 		)
 
-	def _create_index_file(self):
+	def __create_index_file(self):
 		path = os.path.join(
-			self._cursor.get_output_directory(),
+			self.__cursor.get_output_directory(),
 			"index.theme"
 		)
 		file = open(
 			path,
 			"w"
 		)
-		file.write(f"[Index Theme]\nName={self._cursor.get_name()}")
+		file.write(f"[Index Theme]\nName={self.__cursor.get_name()}")
 		file.close()
 
-	def _get_settings_files(self) -> list[str]:
-		return os.listdir(self._cursor.get_settings_directory())
+	def __get_settings_files(self) -> list[str]:
+		return os.listdir(self.__cursor.get_settings_directory())
 
-	def _build_cursor_files(
+	def __build_cursor_files(
 		self,
 		settings_files
 	):
 		for file in settings_files:
 			source_path = os.path.join(
-				self._cursor.get_settings_directory(),
+				self.__cursor.get_settings_directory(),
 				file
 			)
 			output_path = os.path.join(
-				self._cursor.get_output_directory(),
+				self.__cursor.get_output_directory(),
 				"cursors",
 				file
 			)
 			os.system(f"xcursorgen {source_path} > {output_path}")
 
-	def _create_symlink_pairs(self):
-		for symlink_pair in self._cursor.get_symlink_pairs():
+	def __create_symlink_pairs(self):
+		for symlink_pair in self.__cursor.get_symlink_pairs():
 			for outcome in symlink_pair.get_outcomes():
 				outcome_path = os.path.join(
-					self._cursor.get_output_directory(),
+					self.__cursor.get_output_directory(),
 					"cursors",
 					outcome
 				)
 				os.system(f"ln -sf {symlink_pair.get_source()} {outcome_path}")
 
 	def build(self):
-		self._create_cursor_output_directory()
-		self._create_index_file()
-		self._build_cursor_files(self._get_settings_files())
-		self._create_symlink_pairs()
+		self.__create_cursor_output_directory()
+		self.__create_index_file()
+		self.__build_cursor_files(self.__get_settings_files())
+		self.__create_symlink_pairs()
 
 class ArgumentsParse:
 	def __init__(
 		self,
 		properties
 	):
-		self._arguments: list[str] = properties["arguments"]
+		self.__arguments: list[str] = properties["arguments"]
 
 	def has_enough_arguments(self) -> bool:
 		default_arguments_length = 1
-		return len(self._arguments) > default_arguments_length
+		return len(self.__arguments) > default_arguments_length
 
 	def has_unrecognized_command(self) -> bool:
 		return (
 			self.has_enough_arguments() and
-			self._arguments[1] != "build" and
-			self._arguments[1] != "install" and
-			self._arguments[1] != "uninstall"
+			self.__arguments[1] != "build" and
+			self.__arguments[1] != "install" and
+			self.__arguments[1] != "uninstall"
 		)
 
 	def is_to_build(self) -> bool:
 		return (
 			self.has_enough_arguments() and
 			(
-				self._arguments[1] == "build" or
-				self._arguments[1] == "install"
+				self.__arguments[1] == "build" or
+				self.__arguments[1] == "install"
 			)
 		)
 
 	def is_to_install(self) -> bool:
 		return (
 			self.has_enough_arguments() and
-			self._arguments[1] == "install"
+			self.__arguments[1] == "install"
 		)
 
 	def is_to_uninstall(self) -> bool:
 		return (
 			self.has_enough_arguments() and
-			self._arguments[1] == "uninstall"
+			self.__arguments[1] == "uninstall"
 		)
-
 def main():
 	dragon_byte = Cursor({
 		"name": "Dragon Byte",
@@ -274,7 +273,6 @@ def main():
 		]
 	})
 	cursor_builder = CursorBuilder({ "cursor": dragon_byte })
-	print(sys.argv)
 	arguments_parser = ArgumentsParse({ "arguments": sys.argv })
 	if (
 		not arguments_parser.has_enough_arguments() or
