@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 import shutil
@@ -117,7 +119,7 @@ class CursorInstaller:
 		self.__cursor: Cursor = properties["cursor"]
 
 	def __is_user_root(self) -> bool:
-		return os.getlogin() == "root"
+		return os.path.expanduser("~") == "/root"
 
 	def __get_installation_directory(self) -> str:
 		return (os.path.join(
