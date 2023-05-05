@@ -123,15 +123,15 @@
 				<li>Use the wizard script without any arguments to see its usage instructions.</li>
 				<pre><code>./wizard.py</code></pre>
 				<p>When running this wizard script, you must ensure that you run it in the root directory of the repository, as the <code>xcursorgen</code> util can only find the cursor images using its relative path.</p>
-				<li>To install the cursor theme for your user, use it with the subcommand <code>install</code>:</li>
+				<li>To install the cursor theme for your user, use it with the command <code>install</code>:</li>
 				<pre><code>./wizard.py install</code></pre>
 				<p>If you run the script as the <code>root</code> user, installation is performed in a system wide scope, at <code>/usr/share/icons</code>.</p>
 				<p>If you run the script as a normal user, installation is performed for your current user only, at <code>${HOME}/.local/share/icons</code>.
 				<li>After installing the cursor theme, you will need to apply it. You can do it using an icons management tool like <code>Cursors</code> for KDE, <code>Gnome Tweaks</code> for Gnome, <code>lxappearance</code> for others, or even using the X11 resources file <code>~/.Xresources</code>.</li>
-				<li>At any point you can uninstall the cursor theme for your user using the same script, this time with the subcommand <code>uninstall</code>.
+				<li>At any point you can uninstall the cursor theme for your user using the same script, this time with the command <code>uninstall</code>.
 				<pre><code>./wizard.py uninstall</code></pre>
 				<p>This command will remove the cursor theme from the same directory used in the installation for your user.</p>
-				<li>If you want to build and analyze the cursor files yourself, you can use that same script with the subcommand <code>build</code>.</p>
+				<li>If you want to build and analyze the cursor files yourself, you can use that same script with the command <code>build</code>.</p>
 				<pre><code>./wizard.py build</code></pre>
 				<p>The cursor files will be available in a directory called <code>dragon_byte</code> in your current directory.</p>
 				<p>As each application running in X11 can have their own choices of cursor theme, it is actually common to have an issue: after applying the cursor, you can not see it correctly inside an application, specially those from Snap. If you are having this issue, in the rest of this section I will discuss possible solutions for it:</p>
