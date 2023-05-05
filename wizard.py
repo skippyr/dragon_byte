@@ -177,6 +177,21 @@ class ArgumentsParser:
 			self.__arguments[1] == "uninstall"
 		)
 
+class PrettyPrinter:
+	@classmethod
+	def __to_red(
+		cls,
+		text
+	):
+		return f"\x1b[31m{text}\x1b[0m"
+
+	@classmethod
+	def print_title(
+		cls,
+		title
+	):
+		print(cls.__to_red(title))
+
 class Wizard:
 	def __init__(
 		self,
@@ -186,12 +201,25 @@ class Wizard:
 		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": properties["cursor"] })
 		self.__cursor_installer: CursorInstaller = CursorInstaller({ "cursor": properties["cursor"] })
 
+	def __print_usage_instructions(self):
+		PrettyPrinter.print_title("Usage Instructions")
+		PrettyPrinter.print_title("Starting Point")
+		print("\tThis is a script to manage the build, install and uninstall of the Dragon Byte cursor for X11.")
+		PrettyPrinter.print_title("Syntax")
+		print("\tThis script must be used from the root directory of the repository.")
+		print("\tUse this script with the following syntax:")
+		print("\t\t./wizard.py <command>")
+		print("\tIn which <command> can be one of the following:")
+		print("\t\tbuild - builds the cursor and leave it available in the current directory.")
+		print("\t\tinstall - builds and installs the cursor.")
+		print("\t\tuninstall - uninstall the cursor.")
+
 	def run(self):
 		if (
 			not self.__arguments_parser.has_enough_arguments() or
 			self.__arguments_parser.has_unrecognized_command()
 		):
-			print("Usage Instructions")
+			self.__print_usage_instructions()
 		if self.__arguments_parser.is_to_build():
 			self.__cursor_builder.build()
 		if self.__arguments_parser.is_to_install():
@@ -200,7 +228,7 @@ class Wizard:
 			self.__cursor_installer.uninstall()
 
 def main():
-	wizard = Wizard({
+	Wizard({
 		"arguments": sys.argv,
 		"cursor": Cursor({
 			"name": "dragon_byte",
@@ -329,8 +357,7 @@ def main():
 				})
 			]
 		})
-	})
-	wizard.run()
+	}).run()
 	
 main()
 
