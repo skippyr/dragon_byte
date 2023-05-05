@@ -117,8 +117,118 @@ def main():
 		),
 		"symlink_pairs": [
 			SymlinkPair({
+				"source": "left_ptr",
+				"outcomes": [
+					"pointing_hand",
+					"pointer"
+				]
+			}),
+			SymlinkPair({
 				"source": "xterm",
 				"outcomes": [ "text" ]
+			}),
+			SymlinkPair({
+				"source": "hand2",
+				"outcomes": [
+					"hand",
+					"hand1",
+					"grab",
+					"openhand"
+				]
+			}),
+			SymlinkPair({
+				"source": "help",
+				"outcomes": [
+					"context-menu",
+					"question_arrow",
+					"dnd-ask"
+				]
+			}),
+			SymlinkPair({
+				"source": "link",
+				"outcomes": [
+					"copy",
+					"alias",
+					"dnd-copy"
+				]
+			}),
+			SymlinkPair({
+				"source": "not-allowed",
+				"outcomes": [
+					"no-drop",
+					"dnd-no-drop",
+					"dnd-none"
+				]
+			}),
+			SymlinkPair({
+				"source": "ns-resize",
+				"outcomes": [
+					"top_side",
+					"bottom_side",
+					"n-resize",
+					"s-resize",
+					"split_v",
+					"row-resize",
+					"sb_v_double_arrow",
+					"size_ver"
+				]
+			}),
+			SymlinkPair({
+				"source": "ew-resize",
+				"outcomes": [
+					"left_side",
+					"right_side",
+					"e-resize",
+					"w-resize",
+					"split_h",
+					"col-resize",
+					"sb_h_double_arrow",
+					"size_hor"
+				]
+			}),
+			SymlinkPair({
+				"source": "nesw-resize",
+				"outcomes": [
+					"ne-resize",
+					"sw-resize",
+					"top_right_corner",
+					"bottom_left_corner",
+					"size_bdiag"
+				]
+			}),
+			SymlinkPair({
+				"source": "nwse-resize",
+				"outcomes": [
+					"nw-resize",
+					"se-resize",
+					"top_left_corner",
+					"bottom_right_corner",
+					"size_fdiag"
+				]
+			}),
+			SymlinkPair({
+				"source": "all-scroll",
+				"outcomes": [
+					"fleur",
+					"cell",
+					"move",
+					"crosshair",
+					"grabbing",
+					"closedhand",
+					"dnd-move",
+					"cross",
+					"plus",
+					"size_all"
+				]
+			}),
+			SymlinkPair({
+				"source": "watch",
+				"outcomes": [
+					"wait",
+					"progress",
+					"half-busy",
+					"left_ptr_watch"
+				]
 			})
 		]
 	})
