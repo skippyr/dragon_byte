@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 
 def get_current_directory() -> str:
@@ -9,8 +10,8 @@ class SymlinkPair:
 		self,
 		properties
 	):
-		self._source = properties["source"]
-		self._outcomes = properties["outcomes"]
+		self._source: str = properties["source"]
+		self._outcomes: list[str] = properties["outcomes"]
 
 	def get_source(self) -> str:
 		return self._source
@@ -103,6 +104,46 @@ class CursorBuilder:
 		self._create_index_file()
 		self._build_cursor_files(self._get_settings_files())
 		self._create_symlink_pairs()
+
+class ArgumentsParse:
+	def __init__(
+		self,
+		properties
+	):
+		self._arguments: list[str] = properties["arguments"]
+
+	def has_enough_arguments(self) -> bool:
+		default_arguments_length = 1
+		return len(self._arguments) > default_arguments_length
+
+	def has_unrecognized_command(self) -> bool:
+		return (
+			self.has_enough_arguments() and
+			self._arguments[1] != "build" and
+			self._arguments[1] != "install" and
+			self._arguments[1] != "uninstall"
+		)
+
+	def is_to_build(self) -> bool:
+		return (
+			self.has_enough_arguments() and
+			(
+				self._arguments[1] == "build" or
+				self._arguments[1] == "install"
+			)
+		)
+
+	def is_to_install(self) -> bool:
+		return (
+			self.has_enough_arguments() and
+			self._arguments[1] == "install"
+		)
+
+	def is_to_uninstall(self) -> bool:
+		return (
+			self.has_enough_arguments() and
+			self._arguments[1] == "uninstall"
+		)
 
 def main():
 	dragon_byte = Cursor({
@@ -233,7 +274,19 @@ def main():
 		]
 	})
 	cursor_builder = CursorBuilder({ "cursor": dragon_byte })
-	cursor_builder.build()
+	print(sys.argv)
+	arguments_parser = ArgumentsParse({ "arguments": sys.argv })
+	if (
+		not arguments_parser.has_enough_arguments() or
+		arguments_parser.has_unrecognized_command()
+	):
+		print("usage instructions")
+	if arguments_parser.is_to_build():
+		print("build")
+	if arguments_parser.is_to_install():
+		print("install")
+	elif arguments_parser.is_to_uninstall():
+		print("uninstall")
 
 main()
 
