@@ -105,7 +105,7 @@ class CursorBuilder:
 		self.__build_cursor_files(self.__get_settings_files())
 		self.__create_symlink_pairs()
 
-class ArgumentsParse:
+class ArgumentsParser:
 	def __init__(
 		self,
 		properties
@@ -144,147 +144,160 @@ class ArgumentsParse:
 			self.has_enough_arguments() and
 			self.__arguments[1] == "uninstall"
 		)
-def main():
-	dragon_byte = Cursor({
-		"name": "Dragon Byte",
-		"output_directory": os.path.join(
-			get_current_directory(),
-			"dragon_byte"
-		),
-		"settings_directory": os.path.join(
-			get_current_directory(),
-			"settings"
-		),
-		"symlink_pairs": [
-			SymlinkPair({
-				"source": "left_ptr",
-				"outcomes": [
-					"pointing_hand",
-					"pointer"
-				]
-			}),
-			SymlinkPair({
-				"source": "xterm",
-				"outcomes": [ "text" ]
-			}),
-			SymlinkPair({
-				"source": "hand2",
-				"outcomes": [
-					"hand",
-					"hand1",
-					"grab",
-					"openhand"
-				]
-			}),
-			SymlinkPair({
-				"source": "help",
-				"outcomes": [
-					"context-menu",
-					"question_arrow",
-					"dnd-ask"
-				]
-			}),
-			SymlinkPair({
-				"source": "link",
-				"outcomes": [
-					"copy",
-					"alias",
-					"dnd-copy"
-				]
-			}),
-			SymlinkPair({
-				"source": "not-allowed",
-				"outcomes": [
-					"no-drop",
-					"dnd-no-drop",
-					"dnd-none"
-				]
-			}),
-			SymlinkPair({
-				"source": "ns-resize",
-				"outcomes": [
-					"top_side",
-					"bottom_side",
-					"n-resize",
-					"s-resize",
-					"split_v",
-					"row-resize",
-					"sb_v_double_arrow",
-					"size_ver"
-				]
-			}),
-			SymlinkPair({
-				"source": "ew-resize",
-				"outcomes": [
-					"left_side",
-					"right_side",
-					"e-resize",
-					"w-resize",
-					"split_h",
-					"col-resize",
-					"sb_h_double_arrow",
-					"size_hor"
-				]
-			}),
-			SymlinkPair({
-				"source": "nesw-resize",
-				"outcomes": [
-					"ne-resize",
-					"sw-resize",
-					"top_right_corner",
-					"bottom_left_corner",
-					"size_bdiag"
-				]
-			}),
-			SymlinkPair({
-				"source": "nwse-resize",
-				"outcomes": [
-					"nw-resize",
-					"se-resize",
-					"top_left_corner",
-					"bottom_right_corner",
-					"size_fdiag"
-				]
-			}),
-			SymlinkPair({
-				"source": "all-scroll",
-				"outcomes": [
-					"fleur",
-					"cell",
-					"move",
-					"crosshair",
-					"grabbing",
-					"closedhand",
-					"dnd-move",
-					"cross",
-					"plus",
-					"size_all"
-				]
-			}),
-			SymlinkPair({
-				"source": "watch",
-				"outcomes": [
-					"wait",
-					"progress",
-					"half-busy",
-					"left_ptr_watch"
-				]
-			})
-		]
-	})
-	cursor_builder = CursorBuilder({ "cursor": dragon_byte })
-	arguments_parser = ArgumentsParse({ "arguments": sys.argv })
-	if (
-		not arguments_parser.has_enough_arguments() or
-		arguments_parser.has_unrecognized_command()
-	):
-		print("usage instructions")
-	if arguments_parser.is_to_build():
-		print("build")
-	if arguments_parser.is_to_install():
-		print("install")
-	elif arguments_parser.is_to_uninstall():
-		print("uninstall")
 
+class Wizard:
+	def __init__(
+		self,
+		properties
+	):
+		self.__arguments_parser: ArgumentsParser = ArgumentsParser({ "arguments": properties["arguments"] })
+		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": properties["cursor"] })
+	
+	def run(self):
+		if (
+			not self.__arguments_parser.has_enough_arguments() or
+			self.__arguments_parser.has_unrecognized_command()
+		):
+			print("usage instructions")
+		if self.__arguments_parser.is_to_build():
+			self.__cursor_builder.build()
+		if self.__arguments_parser.is_to_install():
+			print("install")
+		elif self.__arguments_parser.is_to_uninstall():
+			print("uninstall")
+
+def main():
+	wizard = Wizard({
+		"arguments": sys.argv,
+		"cursor": Cursor({
+			"name": "Dragon Byte",
+			"output_directory": os.path.join(
+				get_current_directory(),
+				"dragon_byte"
+			),
+			"settings_directory": os.path.join(
+				get_current_directory(),
+				"settings"
+			),
+			"symlink_pairs": [
+				SymlinkPair({
+					"source": "left_ptr",
+					"outcomes": [
+						"pointing_hand",
+						"pointer"
+					]
+				}),
+				SymlinkPair({
+					"source": "xterm",
+					"outcomes": [ "text" ]
+				}),
+				SymlinkPair({
+					"source": "hand2",
+					"outcomes": [
+						"hand",
+						"hand1",
+						"grab",
+						"openhand"
+					]
+				}),
+				SymlinkPair({
+					"source": "help",
+					"outcomes": [
+						"context-menu",
+						"question_arrow",
+						"dnd-ask"
+					]
+				}),
+				SymlinkPair({
+					"source": "link",
+					"outcomes": [
+						"copy",
+						"alias",
+						"dnd-copy"
+					]
+				}),
+				SymlinkPair({
+					"source": "not-allowed",
+					"outcomes": [
+						"no-drop",
+						"dnd-no-drop",
+						"dnd-none"
+					]
+				}),
+				SymlinkPair({
+					"source": "ns-resize",
+					"outcomes": [
+						"top_side",
+						"bottom_side",
+						"n-resize",
+						"s-resize",
+						"split_v",
+						"row-resize",
+						"sb_v_double_arrow",
+						"size_ver"
+					]
+				}),
+				SymlinkPair({
+					"source": "ew-resize",
+					"outcomes": [
+						"left_side",
+						"right_side",
+						"e-resize",
+						"w-resize",
+						"split_h",
+						"col-resize",
+						"sb_h_double_arrow",
+						"size_hor"
+					]
+				}),
+				SymlinkPair({
+					"source": "nesw-resize",
+					"outcomes": [
+						"ne-resize",
+						"sw-resize",
+						"top_right_corner",
+						"bottom_left_corner",
+						"size_bdiag"
+					]
+				}),
+				SymlinkPair({
+					"source": "nwse-resize",
+					"outcomes": [
+						"nw-resize",
+						"se-resize",
+						"top_left_corner",
+						"bottom_right_corner",
+						"size_fdiag"
+					]
+				}),
+				SymlinkPair({
+					"source": "all-scroll",
+					"outcomes": [
+						"fleur",
+						"cell",
+						"move",
+						"crosshair",
+						"grabbing",
+						"closedhand",
+						"dnd-move",
+						"cross",
+						"plus",
+						"size_all"
+					]
+				}),
+				SymlinkPair({
+					"source": "watch",
+					"outcomes": [
+						"wait",
+						"progress",
+						"half-busy",
+						"left_ptr_watch"
+					]
+				})
+			]
+		})
+	})
+	wizard.run()
+	
 main()
 
