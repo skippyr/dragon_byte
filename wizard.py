@@ -4,12 +4,15 @@ import os
 import sys
 import shutil
 
-def get_current_directory() -> str:
-	return os.path.dirname(__file__)
+class PathUtils:
+	@staticmethod
+	def get_current_directory() -> str:
+		return os.path.dirname(__file__)
 
-def remove_directory(path):
-	if os.path.isdir(path):
-		shutil.rmtree(path)
+	@staticmethod
+	def remove_directory(path):
+		if os.path.isdir(path):
+			shutil.rmtree(path)
 
 class SymlinkPair:
 	def __init__(
@@ -55,7 +58,7 @@ class CursorBuilder:
 		self.__cursor: Cursor = properties["cursor"]
 
 	def __create_cursor_output_directory(self):
-		remove_directory(self.__cursor.get_output_directory())
+		PathUtils.remove_directory(self.__cursor.get_output_directory())
 		os.mkdir(self.__cursor.get_output_directory())
 		os.mkdir(
 			os.path.join(
@@ -133,7 +136,7 @@ class CursorInstaller:
 		))
 
 	def uninstall(self):
-		remove_directory(self.__get_installation_directory())
+		PathUtils.remove_directory(self.__get_installation_directory())
 
 	def install(self):
 		self.uninstall()
@@ -147,8 +150,8 @@ class ArgumentsParser:
 		self.__arguments: list[str] = properties["arguments"]
 
 	def has_enough_arguments(self) -> bool:
-		default_arguments_length = 1
-		return len(self.__arguments) > default_arguments_length
+		DEFAULT_ARGUMENTS_LENGTH = 1
+		return len(self.__arguments) > DEFAULT_ARGUMENTS_LENGTH
 
 	def has_unrecognized_command(self) -> bool:
 		return (
@@ -235,11 +238,11 @@ def main():
 		"cursor": Cursor({
 			"name": "dragon_byte",
 			"output_directory": os.path.join(
-				get_current_directory(),
+				PathUtils.get_current_directory(),
 				"dragon_byte"
 			),
 			"settings_directory": os.path.join(
-				get_current_directory(),
+				PathUtils.get_current_directory(),
 				"settings"
 			),
 			"symlink_pairs": [
