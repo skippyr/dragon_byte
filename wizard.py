@@ -12,6 +12,7 @@ class Cursor:
 		self._name = properties["name"]
 		self._output_directory = properties["output_directory"]
 		self._settings_directory = properties["settings_directory"]
+		self._symlink_pairs = properties["symlink_pairs"]
 
 	def get_name(self):
 		return self._name
@@ -21,6 +22,23 @@ class Cursor:
 	
 	def get_settings_directory(self):
 		return self._settings_directory
+	
+	def get_symlink_pairs(self):
+		return self._symlink_pairs
+
+class SymlinkPair:
+	def __init__(
+		self,
+		properties
+	):
+		self._source = properties["source"]
+		self._outcomes = properties["outcomes"]
+
+	def get_source(self):
+		return self._source
+
+	def get_outcomes(self):
+		return self._outcomes
 
 class CursorBuilder:
 	def __init__(
@@ -70,10 +88,21 @@ class CursorBuilder:
 			)
 			os.system(f"xcursorgen {source_path} > {output_path}")
 
+	def _create_symlink_pairs(self):
+		for symlink_pair in self._cursor.get_symlink_pairs():
+			for outcome in symlink_pair.get_outcomes():
+				outcome_path = os.path.join(
+					self._cursor.get_output_directory(),
+					"cursors",
+					outcome
+				)
+				os.system(f"ln -sf {symlink_pair.get_source()} {outcome_path}")
+
 	def build(self):
 		self._create_cursor_output_directory()
 		self._create_index_file()
 		self._build_cursor_files(self._get_settings_files())
+		self._create_symlink_pairs()
 
 def main():
 	dragon_byte = Cursor({
@@ -85,7 +114,13 @@ def main():
 		"settings_directory": os.path.join(
 			get_current_directory(),
 			"settings"
-		)
+		),
+		"symlink_pairs": [
+			SymlinkPair({
+				"source": "xterm",
+				"outcomes": [ "text" ]
+			})
+		]
 	})
 	cursor_builder = CursorBuilder({ "cursor": dragon_byte })
 	cursor_builder.build()
