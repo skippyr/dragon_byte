@@ -115,21 +115,27 @@ class CursorInstaller:
 		properties
 	):
 		self.__cursor: Cursor = properties["cursor"]
-		self.__installation_directory: str = properties["installation_directory"]
+
+	def __is_user_root(self) -> bool:
+		return os.getlogin() == "root"
+
+	def __get_installation_directory(self) -> str:
+		return (os.path.join(
+			"/usr/share/icons",
+			self.__cursor.get_name()
+		)) if self.__is_user_root() else (os.path.join(
+			"/home",
+			os.getlogin(),
+			".local/share/icons",
+			self.__cursor.get_name()
+		))
+
+	def uninstall(self):
+		remove_directory(self.__get_installation_directory())
 
 	def install(self):
-		remove_directory(self.__installation_directory)
-		os.system(f"mv {self.__cursor.get_output_directory()} {self.__installation_directory}")
-
-class CursorUninstaller:
-	def __init__(
-		self,
-		properties
-	):
-		self.__installation_directory: str = properties["installation_directory"]
-	
-	def uninstall(self):
-		remove_directory(self.__installation_directory)
+		self.uninstall()
+		os.system(f"mv {self.__cursor.get_output_directory()} {self.__get_installation_directory()}")
 
 class ArgumentsParser:
 	def __init__(
@@ -176,42 +182,22 @@ class Wizard:
 		self,
 		properties
 	):
-		self.__cursor: Cursor = properties["cursor"]
 		self.__arguments_parser: ArgumentsParser = ArgumentsParser({ "arguments": properties["arguments"] })
-		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": self.__cursor })
-		self.__cursor_installer: CursorInstaller = CursorInstaller({
-			"cursor": self.__cursor,
-			"installation_directory": self.__get_installation_directory()
-		})
-		self.__cursor_uninstaller: CursorUninstaller = CursorUninstaller({ "installation_directory": self.__get_installation_directory() })
-		print(self.__get_installation_directory())
-	
-	def __is_user_root(self) -> bool:
-		return os.getlogin() == "root"
-
-	def __get_installation_directory(self) -> str:
-		return (os.path.join(
-			"/usr/share/icons",
-			self.__cursor.get_name()
-		)) if self.__is_user_root() else (os.path.join(
-			"/home",
-			os.getlogin(),
-			".local/share/icons",
-			self.__cursor.get_name()
-		))
+		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": properties["cursor"] })
+		self.__cursor_installer: CursorInstaller = CursorInstaller({ "cursor": properties["cursor"] })
 
 	def run(self):
 		if (
 			not self.__arguments_parser.has_enough_arguments() or
 			self.__arguments_parser.has_unrecognized_command()
 		):
-			print("usage instructions")
+			print("Usage Instructions")
 		if self.__arguments_parser.is_to_build():
 			self.__cursor_builder.build()
 		if self.__arguments_parser.is_to_install():
 			self.__cursor_installer.install()
 		elif self.__arguments_parser.is_to_uninstall():
-			self.__cursor_uninstaller.uninstall()
+			self.__cursor_installer.uninstall()
 
 def main():
 	wizard = Wizard({
