@@ -5,6 +5,10 @@ import shutil
 def get_current_directory() -> str:
 	return os.path.dirname(__file__)
 
+def remove_directory(path):
+	if os.path.isdir(path):
+		shutil.rmtree(path)
+
 class SymlinkPair:
 	def __init__(
 		self,
@@ -49,7 +53,7 @@ class CursorBuilder:
 		self.__cursor: Cursor = properties["cursor"]
 
 	def __create_cursor_output_directory(self):
-		shutil.rmtree(self.__cursor.get_output_directory())
+		remove_directory(self.__cursor.get_output_directory())
 		os.mkdir(self.__cursor.get_output_directory())
 		os.mkdir(
 			os.path.join(
@@ -105,6 +109,28 @@ class CursorBuilder:
 		self.__build_cursor_files(self.__get_settings_files())
 		self.__create_symlink_pairs()
 
+class CursorInstaller:
+	def __init__(
+		self,
+		properties
+	):
+		self.__cursor: Cursor = properties["cursor"]
+		self.__installation_directory: str = properties["installation_directory"]
+
+	def install(self):
+		remove_directory(self.__installation_directory)
+		os.system(f"mv {self.__cursor.get_output_directory()} {self.__installation_directory}")
+
+class CursorUninstaller:
+	def __init__(
+		self,
+		properties
+	):
+		self.__installation_directory: str = properties["installation_directory"]
+	
+	def uninstall(self):
+		remove_directory(self.__installation_directory)
+
 class ArgumentsParser:
 	def __init__(
 		self,
@@ -150,9 +176,30 @@ class Wizard:
 		self,
 		properties
 	):
+		self.__cursor: Cursor = properties["cursor"]
 		self.__arguments_parser: ArgumentsParser = ArgumentsParser({ "arguments": properties["arguments"] })
-		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": properties["cursor"] })
+		self.__cursor_builder: CursorBuilder = CursorBuilder({ "cursor": self.__cursor })
+		self.__cursor_installer: CursorInstaller = CursorInstaller({
+			"cursor": self.__cursor,
+			"installation_directory": self.__get_installation_directory()
+		})
+		self.__cursor_uninstaller: CursorUninstaller = CursorUninstaller({ "installation_directory": self.__get_installation_directory() })
+		print(self.__get_installation_directory())
 	
+	def __is_user_root(self) -> bool:
+		return os.getlogin() == "root"
+
+	def __get_installation_directory(self) -> str:
+		return (os.path.join(
+			"/usr/share/icons",
+			self.__cursor.get_name()
+		)) if self.__is_user_root() else (os.path.join(
+			"/home",
+			os.getlogin(),
+			".local/share/icons",
+			self.__cursor.get_name()
+		))
+
 	def run(self):
 		if (
 			not self.__arguments_parser.has_enough_arguments() or
@@ -162,15 +209,15 @@ class Wizard:
 		if self.__arguments_parser.is_to_build():
 			self.__cursor_builder.build()
 		if self.__arguments_parser.is_to_install():
-			print("install")
+			self.__cursor_installer.install()
 		elif self.__arguments_parser.is_to_uninstall():
-			print("uninstall")
+			self.__cursor_uninstaller.uninstall()
 
 def main():
 	wizard = Wizard({
 		"arguments": sys.argv,
 		"cursor": Cursor({
-			"name": "Dragon Byte",
+			"name": "dragon_byte",
 			"output_directory": os.path.join(
 				get_current_directory(),
 				"dragon_byte"
