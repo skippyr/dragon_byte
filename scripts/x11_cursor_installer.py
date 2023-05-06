@@ -9,7 +9,7 @@ class PathUtilities:
 	
 	@staticmethod
 	def remove_directory(path):
-		if os.path.is_dir(path):
+		if os.path.isdir(path):
 			shutil.rmtree(path)
 
 class UnixUserUtilities:
@@ -71,23 +71,23 @@ class ArgumentsParser:
 	def __get_command(self):
 		return self.__arguments[1]
 	
-	def is_to_build_cursor(self):
+	def __has_command(
+		self,
+		command
+	):
 		return (
 			self.__has_enough_arguments() and
-			self.__get_command() == "build"
+			self.__get_command() == command
 		)
+	
+	def is_to_build_cursor(self):
+		return self.__has_command("build")
 	
 	def is_to_install_cursor(self):
-		return (
-			self.__has_enough_arguments() and
-			self.__get_command() == "install"
-		)
+		return self.__has_command("install")
 	
 	def is_to_uninstall_cursor(self):
-		return (
-			self.__has_enough_arguments() and
-			self.__get_command() == "uninstall"
-		)
+		return self.__has_command("uninstall")
 
 class X11CursorInstaller:
 	@staticmethod
@@ -106,16 +106,30 @@ class X11CursorInstaller:
 			)
 
 	@staticmethod
-	def __build_cursor(cursor):
+	def __build_cursor(
+		cls,
+		cursor
+	):
+		installation_directory_path = cls.__get_installation_directory_path(cursor)
 		print("build")
 
-	@staticmethod
-	def __install_cursor(cursor):
+	@classmethod
+	def __install_cursor(
+		cls,
+		cursor
+	):
+		installation_directory_path = cls.__get_installation_directory_path(cursor)
+		cls.__build_cursor()
 		print("install")
 
-	@staticmethod
-	def __uninstall_cursor(cursor):
-		print("uninstall")
+	@classmethod
+	def __uninstall_cursor(
+		cls,
+		cursor
+	):
+		installation_directory_path = cls.__get_installation_directory_path(cursor)
+		PathUtilities.remove_directory(installation_directory_path)
+		print(f"Removed installation at: {installation_directory_path}.")
 	
 	@staticmethod
 	def __print_help_instructions():
@@ -250,7 +264,6 @@ class X11CursorInstaller:
 				)
 			]
 		)
-		print(cls.__get_installation_directory_path(cursor))
 		arguments_parser = ArgumentsParser(sys.argv)
 		if arguments_parser.is_to_build_cursor():
 			cls.__build_cursor(cursor)
