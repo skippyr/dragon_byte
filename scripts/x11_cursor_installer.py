@@ -6,7 +6,12 @@ class PathUtilities:
 	@staticmethod
 	def get_repository_directory_path():
 		return os.path.dirname(os.path.dirname(__file__))
-	
+
+	@staticmethod
+	def create_directory(path):
+		if not os.path.isdir(path):
+			os.makedirs(path)
+
 	@staticmethod
 	def remove_directory(path):
 		if os.path.isdir(path):
@@ -16,6 +21,20 @@ class UnixUserUtilities:
 	@staticmethod
 	def is_root():
 		return os.path.expanduser("~") == "/root"
+
+class FileUtilities:
+	@staticmethod
+	def write_file(
+		file_path,
+		content
+	):
+		WRITING_MODE = "w"
+		file = open(
+			file_path,
+			WRITING_MODE
+		)
+		file.write(content)
+		file.close()
 
 class UnixSymlink:
 	def __init__(
@@ -91,35 +110,62 @@ class ArgumentsParser:
 
 class X11CursorInstaller:
 	@staticmethod
-	def __get_installation_directory_path(cursor):
-		if UnixUserUtilities.is_root():
-			return os.path.join(
-				"/usr/share/icons",
-				cursor.get_name()
-			)
-		else:
-			return os.path.join(
-				"/home",
-				os.getlogin(),
-				".local/share/icons",
-				cursor.get_name()
-			)
+	def __create_output_directory_structure(cursor):
+		PathUtilities.remove_directory(cursor.get_output_directory_path())
+		PathUtilities.create_directory(os.path.join(
+			cursor.get_output_directory_path(),
+			"cursors"
+		))
 
 	@staticmethod
+	def __write_index_file(cursor):
+		FileUtilities.write_file(
+			os.path.join(
+				cursor.get_output_directory_path(),
+				"index.theme"
+			),
+			f"[Icon Theme]\nName={cursor.get_name()}\n"
+		)
+
+	@staticmethod
+	def __build_cursor_files(cursor):
+		settings_files = os.listdir(cursor.get_settings_directory_path())
+		for settings_file in settings_files:
+			os.system(f"""xcursorgen {os.path.join(
+				cursor.get_settings_directory_path(),
+				settings_file
+			)} > {os.path.join(
+				cursor.get_output_directory_path(),
+				'cursors',
+				settings_file
+			)}""")
+
+	@staticmethod
+	def __create_symlinks(cursor):
+		for symlink in cursor.get_symlinks():
+			for destination_path in symlink.get_destination_paths():
+				os.system(f"""ln -sf {symlink.get_origin_path()} {os.path.join(
+					cursor.get_output_directory_path(),
+					'cursors',
+					destination_path
+				)}""")
+
+	@classmethod
 	def __build_cursor(
 		cls,
 		cursor
 	):
-		installation_directory_path = cls.__get_installation_directory_path(cursor)
 		print("build")
+		cls.__create_output_directory_structure(cursor)
+		cls.__write_index_file(cursor)
+		cls.__build_cursor_files(cursor)
+		cls.__create_symlinks(cursor)
 
 	@classmethod
 	def __install_cursor(
 		cls,
 		cursor
 	):
-		installation_directory_path = cls.__get_installation_directory_path(cursor)
-		cls.__build_cursor()
 		print("install")
 
 	@classmethod
@@ -127,9 +173,7 @@ class X11CursorInstaller:
 		cls,
 		cursor
 	):
-		installation_directory_path = cls.__get_installation_directory_path(cursor)
-		PathUtilities.remove_directory(installation_directory_path)
-		print(f"Removed installation at: {installation_directory_path}.")
+		print("uninstall")
 	
 	@staticmethod
 	def __print_help_instructions():
