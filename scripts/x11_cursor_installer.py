@@ -70,6 +70,12 @@ class X11Cursor:
 	def get_output_directory_path(self):
 		return self.__output_directory_path
 	
+	def get_cursor_files_directory_path(self):
+		return os.path.join(
+			self.__output_directory_path,
+			"cursors"
+		)
+	
 	def get_settings_directory_path(self):
 		return self.__settings_directory_path
 	
@@ -112,10 +118,7 @@ class X11CursorInstaller:
 	@staticmethod
 	def __create_output_directory_structure(cursor):
 		PathUtilities.remove_directory(cursor.get_output_directory_path())
-		PathUtilities.create_directory(os.path.join(
-			cursor.get_output_directory_path(),
-			"cursors"
-		))
+		PathUtilities.create_directory(cursor.get_cursor_files_directory_path())
 
 	@staticmethod
 	def __write_index_file(cursor):
@@ -135,8 +138,7 @@ class X11CursorInstaller:
 				cursor.get_settings_directory_path(),
 				settings_file
 			)} > {os.path.join(
-				cursor.get_output_directory_path(),
-				'cursors',
+				cursor.get_cursor_files_directory_path(),
 				settings_file
 			)}""")
 
@@ -145,8 +147,7 @@ class X11CursorInstaller:
 		for symlink in cursor.get_symlinks():
 			for destination_path in symlink.get_destination_paths():
 				os.system(f"""ln -sf {symlink.get_origin_path()} {os.path.join(
-					cursor.get_output_directory_path(),
-					'cursors',
+					cursor.get_cursor_files_directory_path(),
 					destination_path
 				)}""")
 
