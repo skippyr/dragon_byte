@@ -17,6 +17,13 @@ class PathUtilities:
 		if os.path.isdir(path):
 			shutil.rmtree(path)
 
+	@staticmethod
+	def move(
+		origin_path,
+		destination_path
+	):
+		os.system(f"mv {origin_path} {destination_path}")
+
 class UnixUserUtilities:
 	@staticmethod
 	def is_root():
@@ -162,12 +169,32 @@ class X11CursorInstaller:
 		cls.__build_cursor_files(cursor)
 		cls.__create_symlinks(cursor)
 
+	@staticmethod
+	def __get_installation_directory_path(cursor):
+		if UnixUserUtilities.is_root():
+			return os.path.join(
+				"/usr/share/icons",
+				cursor.get_name()
+			)
+		else:
+			return os.path.join(
+				"/home",
+				os.getlogin(),
+				".local/share/icons",
+				cursor.get_name()
+			)
+
 	@classmethod
 	def __install_cursor(
 		cls,
 		cursor
 	):
 		print("install")
+		cls.__build_cursor(cursor)
+		PathUtilities.move(
+			cursor.get_output_directory_path(),
+			cls.__get_installation_directory_path(cursor)
+		)
 
 	@classmethod
 	def __uninstall_cursor(
@@ -175,6 +202,7 @@ class X11CursorInstaller:
 		cursor
 	):
 		print("uninstall")
+		PathUtilities.remove_directory(cls.__get_installation_directory_path(cursor))
 	
 	@staticmethod
 	def __print_help_instructions():
