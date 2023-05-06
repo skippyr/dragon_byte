@@ -1,10 +1,21 @@
 import os
 import sys
+import shutil
 
 class PathUtilities:
 	@staticmethod
 	def get_repository_directory_path():
 		return os.path.dirname(os.path.dirname(__file__))
+	
+	@staticmethod
+	def remove_directory(path):
+		if os.path.is_dir(path):
+			shutil.rmtree(path)
+
+class UnixUserUtilities:
+	@staticmethod
+	def is_root():
+		return os.path.expanduser("~") == "/root"
 
 class UnixSymlink:
 	def __init__(
@@ -80,6 +91,21 @@ class ArgumentsParser:
 
 class X11CursorInstaller:
 	@staticmethod
+	def __get_installation_directory_path(cursor):
+		if UnixUserUtilities.is_root():
+			return os.path.join(
+				"/usr/share/icons",
+				cursor.get_name()
+			)
+		else:
+			return os.path.join(
+				"/home",
+				os.getlogin(),
+				".local/share/icons",
+				cursor.get_name()
+			)
+
+	@staticmethod
 	def __build_cursor(cursor):
 		print("build")
 
@@ -98,7 +124,7 @@ class X11CursorInstaller:
 	@classmethod
 	def main(cls):
 		cursor = X11Cursor(
-			name = "Dragon Byte",
+			name = "dragon_byte",
 			output_directory_path = os.path.join(
 				PathUtilities.get_repository_directory_path(),
 				"dragon_byte"
@@ -224,6 +250,7 @@ class X11CursorInstaller:
 				)
 			]
 		)
+		print(cls.__get_installation_directory_path(cursor))
 		arguments_parser = ArgumentsParser(sys.argv)
 		if arguments_parser.is_to_build_cursor():
 			cls.__build_cursor(cursor)
