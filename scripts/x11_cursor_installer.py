@@ -1,4 +1,5 @@
 import os
+import sys
 
 class PathUtilities:
 	@staticmethod
@@ -45,9 +46,57 @@ class X11Cursor:
 	def get_symlinks(self):
 		return self.__symlinks
 
+class ArgumentsParser:
+	def __init__(
+		self,
+		arguments
+	):
+		self.__arguments = arguments
+	
+	def __has_enough_arguments(self):
+		DEFAULT_ARGUMENTS_LENGTH = 1
+		return len(self.__arguments) > DEFAULT_ARGUMENTS_LENGTH
+	
+	def __get_command(self):
+		return self.__arguments[1]
+	
+	def is_to_build_cursor(self):
+		return (
+			self.__has_enough_arguments() and
+			self.__get_command() == "build"
+		)
+	
+	def is_to_install_cursor(self):
+		return (
+			self.__has_enough_arguments() and
+			self.__get_command() == "install"
+		)
+	
+	def is_to_uninstall_cursor(self):
+		return (
+			self.__has_enough_arguments() and
+			self.__get_command() == "uninstall"
+		)
+
 class X11CursorInstaller:
 	@staticmethod
-	def main():
+	def __build_cursor(cursor):
+		print("build")
+
+	@staticmethod
+	def __install_cursor(cursor):
+		print("install")
+
+	@staticmethod
+	def __uninstall_cursor(cursor):
+		print("uninstall")
+	
+	@staticmethod
+	def __print_help_instructions():
+		print("help instructions")
+
+	@classmethod
+	def main(cls):
 		cursor = X11Cursor(
 			name = "Dragon Byte",
 			output_directory_path = os.path.join(
@@ -175,6 +224,16 @@ class X11CursorInstaller:
 				)
 			]
 		)
+		arguments_parser = ArgumentsParser(sys.argv)
+		if arguments_parser.is_to_build_cursor():
+			cls.__build_cursor(cursor)
+		elif arguments_parser.is_to_install_cursor():
+			cls.__install_cursor(cursor)
+		elif arguments_parser.is_to_uninstall_cursor():
+			cls.__uninstall_cursor(cursor)
+		else:
+			cls.__print_help_instructions()
+			exit(1)
 
 X11CursorInstaller.main()
 
