@@ -110,7 +110,7 @@
 				<li>Install these dependencies:</li>
 					<ul>
 						<li><code>python</code> (version 3):</li>
-						<p>This is the programming language used in the <code>wizard.py</code>, a script to manage the build, install and uninstall of the cursor theme. If you are using Linux, you probably have it already installed.</p>
+						<p>This is the programming language used in the installer script. If you are using Linux, you probably have it already installed.</p>
 						<li><code>xcursorgen</code>:</li>
 						<p>This is the X11 util to create the cursor files from PNG images.</p>
 					</ul>
@@ -120,19 +120,19 @@
 				<p>If you do not have <code>git</code> installed, you can download this repository from its page on GitHub. Access that page, click on the <code>Code</code> button on the top of the page, then click on <code>Download ZIP</code>. This will download a ZIP file containing the repository, you just have to unzip it and move to the path you want it to be.</p>
 				<li>Access the repository's directory.</li>
 				<pre><code>cd dragon_byte</code></pre>
-				<li>Use the wizard script without any arguments to see its usage instructions.</li>
-				<pre><code>./wizard.py</code></pre>
+				<li>Use the installer script without any arguments to see its usage instructions.</li>
+				<pre><code>./scripts/x11_cursor_installer.py</code></pre>
 				<p>When running this wizard script, you must ensure that you run it in the root directory of the repository, as the <code>xcursorgen</code> util can only find the cursor images using its relative path.</p>
 				<li>To install the cursor theme for your user, use it with the command <code>install</code>:</li>
-				<pre><code>./wizard.py install</code></pre>
+				<pre><code>./scripts/x11_cursor_installer.py install</code></pre>
 				<p>If you run the script as the <code>root</code> user, installation is performed in a system wide scope, at <code>/usr/share/icons</code>.</p>
 				<p>If you run the script as a normal user, installation is performed for your current user only, at <code>${HOME}/.local/share/icons</code>.
 				<li>After installing the cursor theme, you will need to apply it. You can do it using an icons management tool like <code>Cursors</code> for KDE, <code>Gnome Tweaks</code> for Gnome, <code>lxappearance</code> for others, or even using the X11 resources file <code>~/.Xresources</code>.</li>
 				<li>At any point you can uninstall the cursor theme for your user using the same script, this time with the command <code>uninstall</code>.
-				<pre><code>./wizard.py uninstall</code></pre>
+				<pre><code>./scripts/x11_cursor_installer.py uninstall</code></pre>
 				<p>This command will remove the cursor theme from the same directory used in the installation for your user.</p>
 				<li>If you want to build and analyze the cursor files yourself, you can use that same script with the command <code>build</code>.</p>
-				<pre><code>./wizard.py build</code></pre>
+				<pre><code>./scripts/x11_cursor_installer.py build</code></pre>
 				<p>The cursor files will be available in a directory called <code>dragon_byte</code> in your current directory.</p>
 				<p>As each application running in X11 can have their own choices of cursor theme, it is actually common to have an issue: after applying the cursor, you can not see it correctly inside an application, specially those from Snap. If you are having this issue, in the rest of this section I will discuss possible solutions for it:</p>
 				<ul>
