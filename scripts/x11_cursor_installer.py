@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 import shutil
@@ -42,6 +44,44 @@ class FileUtilities:
 		)
 		file.write(content)
 		file.close()
+
+class PrintUtilities:
+	@staticmethod
+	def __to_red(text):
+		return f"\x1b[31m{text}\x1b[0m"
+
+	@classmethod
+	def print_title(
+		cls,
+		indentation_level,
+		title
+	):
+		print(
+			"\t" * indentation_level +
+			cls.__to_red(title)
+		)
+
+	@classmethod
+	def print_topic(
+		cls,
+		indentation_level,
+		content
+	):
+		print(
+			"\t" * indentation_level +
+			cls.__to_red("* ") +
+			content
+		)
+
+	@staticmethod
+	def print(
+		indentation_level,
+		content
+	):
+		print(
+			"\t" * indentation_level +
+			content
+		)
 
 class UnixSymlink:
 	def __init__(
@@ -126,6 +166,10 @@ class X11CursorInstaller:
 	def __create_output_directory_structure(cursor):
 		PathUtilities.remove_directory(cursor.get_output_directory_path())
 		PathUtilities.create_directory(cursor.get_cursor_files_directory_path())
+		PrintUtilities.print_topic(
+			1,
+			"Created directory structure."
+		)
 
 	@staticmethod
 	def __write_index_file(cursor):
@@ -136,23 +180,45 @@ class X11CursorInstaller:
 			),
 			f"[Icon Theme]\nName={cursor.get_name()}\n"
 		)
+		PrintUtilities.print_topic(
+			1,
+			"Wrote index file."
+		)
 
 	@staticmethod
 	def __build_cursor_files(cursor):
 		settings_files = os.listdir(cursor.get_settings_directory_path())
+		PrintUtilities.print_topic(
+			1,
+			"Building cursor files:"
+		)
 		for settings_file in settings_files:
-			os.system(f"""xcursorgen {os.path.join(
+			settings_file_path = os.path.join(
 				cursor.get_settings_directory_path(),
 				settings_file
-			)} > {os.path.join(
+			)
+			cursor_file_path = os.path.join(
 				cursor.get_cursor_files_directory_path(),
 				settings_file
-			)}""")
+			)
+			os.system(f"""xcursorgen {settings_file_path} > {cursor_file_path}""")
+			PrintUtilities.print_topic(
+				2,
+				f"Built cursor file {settings_file}."
+			)
 
 	@staticmethod
 	def __create_symlinks(cursor):
+		PrintUtilities.print_topic(
+			1,
+			"Creating symlinks:"
+		)
 		for symlink in cursor.get_symlinks():
 			for destination_path in symlink.get_destination_paths():
+				PrintUtilities.print_topic(
+					2,
+					f"Created symlink between {symlink.get_origin_path()} to {destination_path}."
+				)
 				os.system(f"""ln -sf {symlink.get_origin_path()} {os.path.join(
 					cursor.get_cursor_files_directory_path(),
 					destination_path
@@ -163,11 +229,18 @@ class X11CursorInstaller:
 		cls,
 		cursor
 	):
-		print("build")
+		PrintUtilities.print_title(
+			0,
+			"Build"
+		)
 		cls.__create_output_directory_structure(cursor)
 		cls.__write_index_file(cursor)
 		cls.__build_cursor_files(cursor)
 		cls.__create_symlinks(cursor)
+		PrintUtilities.print(
+			1,
+			f"Cursor is available in the current directory as: {cursor.get_name()}."
+		)
 
 	@staticmethod
 	def __get_installation_directory_path(cursor):
@@ -189,11 +262,21 @@ class X11CursorInstaller:
 		cls,
 		cursor
 	):
-		print("install")
+		installation_directory = cls.__get_installation_directory_path(cursor)
+		PrintUtilities.print_title(
+			0,
+			"Install"
+		)
 		cls.__build_cursor(cursor)
+		PathUtilities.remove_directory(installation_directory)
+		PathUtilities.create_directory(os.path.dirname(installation_directory))
 		PathUtilities.move(
 			cursor.get_output_directory_path(),
-			cls.__get_installation_directory_path(cursor)
+			installation_directory
+		)
+		PrintUtilities.print(
+			1,
+			f"Installed cursor build at {installation_directory}."
 		)
 
 	@classmethod
@@ -201,12 +284,63 @@ class X11CursorInstaller:
 		cls,
 		cursor
 	):
-		print("uninstall")
-		PathUtilities.remove_directory(cls.__get_installation_directory_path(cursor))
+		installation_directory = cls.__get_installation_directory_path(cursor)
+		PrintUtilities.print_title(
+			0,
+			"Uninstall"
+		)
+		PathUtilities.remove_directory(installation_directory)
+		PrintUtilities.print(
+			1,
+			f"Removed installation directory {installation_directory}."
+		)
 	
 	@staticmethod
 	def __print_help_instructions():
-		print("help instructions")
+		PrintUtilities.print_title(
+			0,
+			"Help Instructions"
+		)
+		PrintUtilities.print_title(
+			0,
+			"Starting Point"
+		)
+		PrintUtilities.print(
+			1,
+			"This is a script to manage the build, install and uninstall of a X11 port of the Dragon Byte cursor."
+		)
+		PrintUtilities.print_title(
+			0,
+			"Syntax"
+		)
+		PrintUtilities.print(
+			1,
+			"For it to work, you must ensure that you run it from the root directory of the repository."
+		)
+		PrintUtilities.print(
+			1,
+			"Use it with the following syntax:"
+		)
+		PrintUtilities.print(
+			2,
+			"./scripts/x11_cursor_installer.py <command>"
+		)
+		PrintUtilities.print(
+			1,
+			"The commands it can accept are:"
+		)
+		PrintUtilities.print_topic(
+			2,
+			"build: builds the cursor and leave it available in the current directory."
+		)
+		PrintUtilities.print_topic(
+			2,
+			"install: builds the cursor and install it for your current user."
+		)
+		PrintUtilities.print_topic(
+			2,
+			"uninstall: uninstalls the cursor for your current user. It can revert the actions made by the install command."
+		)
 
 	@classmethod
 	def main(cls):
