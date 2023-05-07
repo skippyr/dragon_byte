@@ -176,9 +176,7 @@
 				<p>After doing this step, you will have created the variables to use with the CSS <code>cursor</code> property, you just have to apply it to the elements that you want using CSS rules in that same file. Just as a simple example, this code applies the <code>pointer</code> cursor to the <code>main</code> element:</p>
 				<pre><code>
 main
-{
-	cursor: var(--dragon-byte-pointer);
-}
+{ cursor: var(--dragon-byte-pointer); }
 				</pre></code>
 				<li>Import the stylesheet file that you created in your HTML pages to apply the cursor properties that you have defined.</li>
 				<p>This process will allow you to avoid having to copy that variable definitions to every new stylesheet that you may need for your pages and having to change their relative paths again, by gathering every cursor property in just one file. There are other ways you can import this cursor theme in your web page, but this was the easiest way I have found to teach you. You can learn more about it in these reference materials:</p>
