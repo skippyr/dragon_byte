@@ -1,4 +1,9 @@
 class Images
+	@temporary_directory = Directory.new(File.join(
+		Project.get_images_directory.get_path,
+		"temporary"
+	))
+	
 	def self.create_composite_command(layers)
 		layers_command = []
 		for layer_iterator in 0..layers.length - 1
@@ -27,10 +32,6 @@ class Images
 	end
 
 	def self.create()
-		@temporary_directory = Directory.new(File.join(
-			Project.get_images_directory.get_path,
-			"temporary"
-		))
 		for source_file in Project.get_source_files_directory.get_entries
 			@temporary_directory.replace()
 			self.create_temporary_image_layers(source_file)

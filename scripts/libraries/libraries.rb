@@ -6,4 +6,5 @@ require_relative("geometry")
 require_relative("cursor")
 require_relative("arguments")
 require_relative("errors")
+require_relative("help")
 
