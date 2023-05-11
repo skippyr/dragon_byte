@@ -25,7 +25,7 @@
 				<pre><code>cd dragon_byte</code></pre>
 				<li>Execute the wizard script using the <code>create-web-port</code> command.</li>
 				<pre><code>ruby scripts/wizard.rb create-web-port</code></pre>
-				<p>This will create the directory <code>distributions</code> in the root of the repository's directory containing all the required files for your web project:</p>
+				<p>This will create the directory <code>distributions</code> in the repository's root directory containing all the required files for your web project:</p>
 				<ul>
 					<li>Images of the cursor will be under <code>distributions/cursors</code> in PNG format.</li>
 					<li>A stylesheet containing variables will be at <code>distributions/dragon_byte.css</code>.</li>
@@ -48,12 +48,12 @@ body
 				<p>Applying the remaining variables of the cursor is up to you: you will have to manually apply them to your page elements.</p>
 			</ul>
 		<h3>Installation For X11</h3>
-			<p>You still to download one more for this installation:</p>
+			<p>For this installation, along with the common dependencies, you will have to download one more:</p>
 			<ul>
 				<li>xcursorgen</li>
 				<p>This is the utility tool from X11 that allows developers to create an X11 cursor from PNG files.</p>
 			</ul>
-			<p>After installing all the common and specific dependencies for this installation, follow these steps:</p>
+			<p>After installing all the dependencies, follow these steps:</p>
 			<li>Access the repository's directory.</li>
 			<pre><code>cd dragon_byte</code></pre>
 			<li>Execute the wizard script using the <code>create-x11-port</code> command.</li>
@@ -61,14 +61,15 @@ body
 			<p>This will create the directory <code>distributions</code> in the root of the repository's directory containing all the required files for X11:</p>
 			<ul>
 				<li>The cursor files will be under <code>distributions/cursors</code>.</li>
-				<li>A index file containing the metadata of the cursor will be at <code>distributions/index.theme</code>.</li>
+				<li>A file containing the metadata of the cursor will be at <code>distributions/index.theme</code>.</li>
 				<li>A copy of the license of this project will be at <code>distributions/LICENSE</code>.</li>
 			</ul>
-			<li>Move the distributions directory create to your user's icons directory. You might have to create it first:</li>
+			<li>Move the distributions directory created to your user's icons directory. You might have to create it first:</li>
 			<pre><code>mkdir -p ${HOME}/.local/share/icons</code></pre>
-			<p>Assuming that you are in the root directory of the repository:</p>
-			<pre><code>mv distributions ${HOME}/.local/share/icons/dragon_byte</code></pre>
-			<li>Apply the cursor using your system's settings application like <code>Gnome Tweaks</code> and <code>LxAppearance</code> or by using an Xresource rule.</p>
+			<p>Assuming that you are in the repository's root directory:</p>
+			<pre><code>mv -r distributions ${HOME}/.local/share/icons/dragon_byte</code></pre>
+			<li>Apply the cursor using your system's settings application or by using an Xresource rule.</p>
+			<li>Restart X11 for your changes to be properly set.</li>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
 	<h2>License</h2>
