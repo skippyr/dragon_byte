@@ -96,3 +96,35 @@ class UnixSymlink
 	end
 end
 
+class X11CursorSettingsFile
+	def initialize(cursor_file)
+		@path = File.join(
+			Project.get_distributions_cursors_directory.get_path,
+			"settings"
+		)
+		@image_path = "#{File.join(
+			Project.get_images_directory.get_path,
+			cursor_file.get_name
+		)}.png"
+		@size_in_pixels = 42
+		@duration_in_miliseconds = 0
+		@hotspot = cursor_file.get_hotspot
+	end
+
+	def get_path
+		@path
+	end
+
+	def create
+		File.write(
+			@path,
+			"#{@size_in_pixels} #{@hotspot.get_x} #{@hotspot.get_y} #{@image_path} #{@duration_in_miliseconds}"
+		)
+	end
+
+	def remove
+		FileUtils.rm_rf(@path)
+	end
+end
+
+

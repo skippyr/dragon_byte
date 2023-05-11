@@ -1,30 +1,44 @@
 class Project
-	def self.get_repository_directory()
+	def self.get_repository_directory
 		Directory.new(File.dirname(File.dirname(__dir__)))
 	end
 
-	def self.get_source_files_directory()
+	def self.get_source_files_directory
 		Directory.new(File.join(
 			self.get_repository_directory.get_path,
 			"sources"
 		))
 	end
 
-	def self.get_images_directory()
+	def self.get_images_directory
 		Directory.new(File.join(
 			self.get_repository_directory.get_path,
 			"images"
 		))
 	end
 
-	def self.get_distributions_directory()
+	def self.get_distributions_directory
 		Directory.new(File.join(
 			self.get_repository_directory.get_path,
 			"distributions"
 		))
 	end
 
-	def self.get_cursor()
+	def self.get_license_file_path
+		File.join(
+			self.get_repository_directory.get_path,
+			"LICENSE"
+		)
+	end
+
+	def self.get_distributions_cursors_directory
+		Directory.new(File.join(
+			self.get_distributions_directory.get_path,
+			"cursors"
+		))
+	end
+
+	def self.get_cursor
 		Cursor.new(
 			[
 				CursorFile.new(
