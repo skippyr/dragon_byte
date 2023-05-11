@@ -2,8 +2,12 @@
 	<h2>Starting Point</h2>
 		<p>A 42x42 cursor with a dragon drawing.</p>
 	<h2>Installation And Usage</h2>
-		<p>This repository contains the source files of the cursor and a wizard script to create the necessary ports. This cursor can be embed in your web project or used inside the X11 graphical environment.</p>
-		<p>Both installations have different instructions, but both have common dependencies, that you need to install before trying to do anything else:</p>
+		<p>This repository contains basically the source files of the cursor but also a wizard script to help you automatically create all the necessary files to use this cursor:</p>
+		<ul>
+			<li>In a web project.</li>
+			<li>In X11.</li>
+		</ul>
+		<p>Both installations have different instructions, but both have common dependencies too, that you will need to install before trying to do anything else:</p>
 		<ul>
 			<li>Ruby</li>
 			<p>This is the programming language used in the wizard script.</p>
@@ -12,7 +16,7 @@
 		</ul>
 		<p>You will also need to download this repository. If you have <code>git</code> installed, you can do it using the following command:</p>
 		<pre><code>git clone --depth=1 https://github.com/skippyr/dragon_byte</code></pre>
-		<p>This will cone this repository to the directory <code>dragon_byte</code> in your current directory. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit as it does by default.</p>
+		<p>This will clone this repository to the directory <code>dragon_byte</code> in your current directory. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit as it does by default.</p>
 		<p>If you do not have <code>git</code> installed, you can download this repository from its page on GitHub: access that page, click on the button labeled <code>Code</code> on the top of the page, then click on the button <code>Download ZIP</code> that will appear in the floating menu. This will download a compressed file with the repository, you just have to unzip it in a formidable directory.</p>
 		<h3>Installation For Web Projects</h3>
 			<p>After ensuring that all the common dependencies are installed, follow these steps:</p>
@@ -24,25 +28,47 @@
 				<p>This will create the directory <code>distributions</code> in the root of the repository's directory containing all the required files for your web project:</p>
 				<ul>
 					<li>Images of the cursor will be under <code>distributions/cursors</code> in PNG format.</li>
-					<li>A stylesheet containing variables will be at <code>distributions/stylesheet.css</code>.</li>
+					<li>A stylesheet containing variables will be at <code>distributions/dragon_byte.css</code>.</li>
 					<li>A copy of the license of this project will be at <code>distributions/LICENSE</code>.</li>
 				</ul>
 				<li>Copy the <code>distributions</code> directory created to a formidable directory in your web project.</li>
-				<li>Import the stylesheets of the directory you have just copied inside your <code>HTML</code> file. You can use a <code>link</code> tag for that:</li>
+				<li>Import the stylesheet file <code>dragon_byte.css</code> of the directory you have just copied inside your <code>HTML</code> file. You can use a <code>link</code> tag for that. Here is a template that you can use:</li>
 				<pre><code>
 &lt;link
 	rel="stylesheet"
 	href=""
 /&gt;
 				</code></pre>
-				<p>You can use the example above, but you will have to insert the relative path to include that stylesheet yourself in the <code>href</code> attribute shown.</p>
+				<p>You still have to insert the relative path to include that stylesheet yourself, in the <code>href</code> attribute shown.</p>
 				<li>Write the CSS rules you need to apply the cursor inside the stylesheet that you imported. It already has all the necessary variables defined and in scope for you to do it. Every variable is prefixed with <code>dragon-byte</code> to make them unique. Want a usage example? What about applying the <code>default</code> cursor for your <code>body</code> element:</li>
 				<pre><code>
 body
 { cursor: var(--dragon-byte-default); }
 				</code></pre>
-				<p>You will have to manually apply the cursor variants you need to your HTML elements.</p>
+				<p>Applying the remaining variables of the cursor is up to you: you will have to manually apply them to your page elements.</p>
 			</ul>
+		<h3>Installation For X11</h3>
+			<p>You still to download one more for this installation:</p>
+			<ul>
+				<li>xcursorgen</li>
+				<p>This is the utility tool from X11 that allows developers to create an X11 cursor from PNG files.</p>
+			</ul>
+			<p>After installing all the common and specific dependencies for this installation, follow these steps:</p>
+			<li>Access the repository's directory.</li>
+			<pre><code>cd dragon_byte</code></pre>
+			<li>Execute the wizard script using the <code>create-x11-port</code> command.</li>
+			<pre><code>ruby scripts/wizard.rb create-x11-port</code></pre>
+			<p>This will create the directory <code>distributions</code> in the root of the repository's directory containing all the required files for X11:</p>
+			<ul>
+				<li>The cursor files will be under <code>distributions/cursors</code>.</li>
+				<li>A index file containing the metadata of the cursor will be at <code>distributions/index.theme</code>.</li>
+				<li>A copy of the license of this project will be at <code>distributions/LICENSE</code>.</li>
+			</ul>
+			<li>Move the distributions directory create to your user's icons directory. You might have to create it first:</li>
+			<pre><code>mkdir -p ${HOME}/.local/share/icons</code></pre>
+			<p>Assuming that you are in the root directory of the repository:</p>
+			<pre><code>mv distributions ${HOME}/.local/share/icons/dragon_byte</code></pre>
+			<li>Apply the cursor using your system's settings application like <code>Gnome Tweaks</code> and <code>LxAppearance</code> or by using an Xresource rule.</p>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
 	<h2>License</h2>
