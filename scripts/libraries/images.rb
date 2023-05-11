@@ -39,3 +39,4 @@ class Images
 		@temporary_directory.remove()
 	end
 end
+
