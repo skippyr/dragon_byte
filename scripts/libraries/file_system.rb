@@ -133,4 +133,27 @@ class X11CursorSettingsFile
 	end
 end
 
+class Stylesheet
+	def initialize(cursor_files)
+		@path = File.join(
+			Project.get_distributions_directory.get_path,
+			"dragon_byte.css"
+		)
+		@contents = ":root\n{\n"
+		for file in cursor_files
+			for css_name in file.get_css_names
+				@contents << "\t--dragon-byte-#{css_name}:\n\t\turl(\"./dist/cursors/#{file.get_name}\") #{file.get_hotspot.get_x} #{file.get_hotspot.get_y},\n\t\t#{css_name};\n"
+			end
+		end
+		@contents << "}\n"
+	end
+
+	def create
+		File.write(
+			@path,
+			@contents
+		)
+	end
+end
+
 

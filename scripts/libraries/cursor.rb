@@ -43,8 +43,6 @@ class CursorFile
 end
 
 class Cursor
-	@files
-
 	def initialize(files)
 		@files = files
 	end
@@ -62,17 +60,21 @@ class Cursor
 			settings_file.remove
 		end
 		Project.copy_license_to(Project.get_distributions_directory.get_path)
+		Project.get_images_directory.remove
 	end
 
-	def get_css_variables
-		css_variables = ":root\n{\n"
-		for file in @files
-			for css_name in file.get_css_names
-				css_variables << "\t--dragon-byte-#{css_name}:\n\t\turl(\"./dist/cursors/#{file.get_name}\") #{file.get_hotspot.get_x} #{file.get_hotspot.get_y},\n\t\t#{css_name};\n"
-			end
+	def create_web_port
+		Images.create
+		Project.get_distributions_directory.replace
+		Project.get_distributions_cursors_directory.create
+		for image in Project.get_images_directory.get_entries
+			FileUtils.cp(
+				image.get_path,
+				Project.get_distributions_cursors_directory.get_path
+			)
 		end
-		css_variables << "}\n"
-		css_variables
+		Stylesheet.new(@files).create
+		Project.get_images_directory.remove
 	end
 end
 
