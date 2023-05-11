@@ -142,7 +142,7 @@ class Stylesheet
 		@contents = ":root\n{\n"
 		for file in cursor_files
 			for css_name in file.get_css_names
-				@contents << "\t--dragon-byte-#{css_name}:\n\t\turl(\"./dist/cursors/#{file.get_name}\") #{file.get_hotspot.get_x} #{file.get_hotspot.get_y},\n\t\t#{css_name};\n"
+				@contents << "\t--dragon-byte-#{css_name}:\n\t\turl(\"./cursors/#{file.get_name}.png\") #{file.get_hotspot.get_x} #{file.get_hotspot.get_y},\n\t\t#{css_name};\n"
 			end
 		end
 		@contents << "}\n"
