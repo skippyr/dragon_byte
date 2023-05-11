@@ -74,6 +74,7 @@ class Cursor
 			)
 		end
 		Stylesheet.new(@files).create
+		Project.copy_license_to(Project.get_distributions_directory.get_path)
 		Project.get_images_directory.remove
 	end
 end
