@@ -66,3 +66,33 @@ class DirectoryEntry
 	end
 end
 
+class UnixSymlink
+	@origin_path
+	@destination_paths
+
+	def initialize(
+		origin_path,
+		destination_paths
+	)
+		@origin_path = origin_path
+		@destination_paths = destination_paths
+	end
+
+	def get_origin_path
+		@origin_path
+	end
+
+	def get_destination_paths
+		@destination_paths
+	end
+
+	def create
+		for destination_path in @destination_paths
+			File.symlink(
+				@origin_path,
+				destination_path
+			)
+		end
+	end
+end
+
