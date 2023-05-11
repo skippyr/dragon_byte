@@ -24,18 +24,21 @@ class Project
 		))
 	end
 
-	def self.get_license_file_path
-		File.join(
-			self.get_repository_directory.get_path,
-			"LICENSE"
-		)
-	end
-
 	def self.get_distributions_cursors_directory
 		Directory.new(File.join(
 			self.get_distributions_directory.get_path,
 			"cursors"
 		))
+	end
+
+	def self.copy_license_to(path)
+		FileUtils.cp(
+			File.join(
+				self.get_repository_directory.get_path,
+				"LICENSE"
+			),
+			path
+		)
 	end
 
 	def self.get_cursor

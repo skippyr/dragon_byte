@@ -78,14 +78,6 @@ class UnixSymlink
 		@destination_paths = destination_paths
 	end
 
-	def get_origin_path
-		@origin_path
-	end
-
-	def get_destination_paths
-		@destination_paths
-	end
-
 	def create
 		for destination_path in @destination_paths
 			File.symlink(
@@ -93,6 +85,20 @@ class UnixSymlink
 				destination_path
 			)
 		end
+	end
+end
+
+class X11CursorIndexFile
+	@path = File.join(
+		Project.get_distributions_directory.get_path,
+		"index.theme"
+	)
+
+	def self.create
+		File.write(
+			@path,
+			"[Icon Theme]\nName=dragon_byte\n"
+		)
 	end
 end
 
