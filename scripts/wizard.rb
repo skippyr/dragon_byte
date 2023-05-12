@@ -10,7 +10,7 @@ elsif Arguments.is_to_create_x11_port?
 	puts "X11 port available at: #{Project.get_distributions_directory.get_path}."
 else
 	Error.new(
-		"no valid command given.",
+		"no valid command used.",
 		"read the help instructions using the flag --help to see available commands.",
 		1
 	).throw

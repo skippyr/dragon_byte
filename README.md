@@ -1,6 +1,7 @@
 <h1>Dragon Byte</h1>
 	<h2>Starting Point</h2>
 		<p>A 42x42 cursor with a dragon drawing.</p>
+		<img src="./preview/preview.png"/>
 	<h2>Installation And Usage</h2>
 		<p>This repository contains basically the source files of the cursor but also a wizard script to help you automatically create all the necessary files to use this cursor:</p>
 		<ul>
@@ -16,7 +17,7 @@
 		</ul>
 		<p>You will also need to download this repository. If you have <code>git</code> installed, you can do it using the following command:</p>
 		<pre><code>git clone --depth=1 https://github.com/skippyr/dragon_byte</code></pre>
-		<p>This will clone this repository to the directory <code>dragon_byte</code> in your current directory. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit as it does by default.</p>
+		<p>This will clone this repository to the directory <code>dragon_byte</code> in your current directory. The flag <code>--depth</code> with value <code>1</code> specifies to <code>git</code> that you only want to download the latest commit instead of the whole commit tree as it does by default.</p>
 		<p>If you do not have <code>git</code> installed, you can download this repository from its page on GitHub: access that page, click on the button labeled <code>Code</code> on the top of the page, then click on the button <code>Download ZIP</code> that will appear in the floating menu. This will download a compressed file with the repository, you just have to unzip it in a formidable directory.</p>
 		<h3>Installation For Web Projects</h3>
 			<p>After ensuring that all the common dependencies are installed, follow these steps:</p>
@@ -58,16 +59,18 @@ body
 			<pre><code>cd dragon_byte</code></pre>
 			<li>Execute the wizard script using the <code>create-x11-port</code> command.</li>
 			<pre><code>ruby scripts/wizard.rb create-x11-port</code></pre>
-			<p>This will create the directory <code>distributions</code> in the root of the repository's directory containing all the required files for X11:</p>
+			<p>This will create the directory <code>distributions</code> in the repository's root directory containing all the required files for X11:</p>
 			<ul>
 				<li>The cursor files will be under <code>distributions/cursors</code>.</li>
 				<li>A file containing the metadata of the cursor will be at <code>distributions/index.theme</code>.</li>
 				<li>A copy of the license of this project will be at <code>distributions/LICENSE</code>.</li>
 			</ul>
-			<li>Move the distributions directory created to your user's icons directory. You might have to create it first:</li>
+			<li>Move the <code>distributions</code> directory created to your user's icons directory. You might have to create it first:</li>
 			<pre><code>mkdir -p ${HOME}/.local/share/icons</code></pre>
+			<p>The flag <code>-p</code> specified to <code>mkdir</code> to create all the directories recursively if they do not exist.</p>
 			<p>Assuming that you are in the repository's root directory:</p>
 			<pre><code>mv -r distributions ${HOME}/.local/share/icons/dragon_byte</code></pre>
+			<p>The flag <code>-r</code> specifies to <code>mv</code> that you want to move a directory recursively: moving it and its contents too.</p>
 			<li>Apply the cursor using your system's settings application or by using an Xresource rule.</p>
 			<li>Restart X11 for your changes to be properly set.</li>
 	<h2>Issues And Contributions</h2>

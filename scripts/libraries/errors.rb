@@ -14,7 +14,7 @@ class Error
 		STDERR.puts("\tprogram: wizard.rb.")
 		STDERR.puts("\tdescription: #{@description}")
 		STDERR.puts("\tsuggestion: #{@suggestion}")
-		STDERR.puts("\texit code: #{@exit_code}")
+		STDERR.puts("\texit code: #{@exit_code}.")
 		exit(@exit_code)
 	end
 end
