@@ -31,13 +31,13 @@ class Images
 		)}.png")
 	end
 
-	def self.create()
+	def self.create
 		for source_file in Project.get_source_files_directory.get_entries
-			@temporary_directory.replace()
+			@temporary_directory.replace
 			self.create_temporary_image_layers(source_file)
 			self.create_temporary_image_from_layers(source_file)
 		end
-		@temporary_directory.remove()
+		@temporary_directory.remove
 	end
 end
 
