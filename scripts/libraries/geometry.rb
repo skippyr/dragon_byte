@@ -1,5 +1,8 @@
 class Coordinate
-	def initialize(x, y)
+	def initialize(
+		x,
+		y
+	)
 		@x = x
 		@y = y
 	end

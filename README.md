@@ -1,7 +1,7 @@
 <h1>Dragon Byte</h1>
 	<h2>Starting Point</h2>
 		<p>A 42x42 cursor with a dragon drawing that can be used in web projects and X11.</p>
-		<img src="./preview/preview.png"/>
+		<img src="./images/preview.png"/>
 	<h2>Installation And Usage</h2>
 		<p>This repository contains basically the source files of the cursor but also a wizard script to help you automatically create all the necessary files to use this cursor.</p>
 		<p>For any installation of this cursor, some common dependencies must be satisfied, that you will need to install before trying to do anything else:</p>
