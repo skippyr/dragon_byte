@@ -1,14 +1,10 @@
 <h1>Dragon Byte</h1>
 	<h2>Starting Point</h2>
-		<p>A 42x42 cursor with a dragon drawing.</p>
+		<p>A 42x42 cursor with a dragon drawing that can be used in web projects and X11.</p>
 		<img src="./preview/preview.png"/>
 	<h2>Installation And Usage</h2>
-		<p>This repository contains basically the source files of the cursor but also a wizard script to help you automatically create all the necessary files to use this cursor:</p>
-		<ul>
-			<li>In a web project.</li>
-			<li>In X11.</li>
-		</ul>
-		<p>Both installations have different instructions, but both have common dependencies too, that you will need to install before trying to do anything else:</p>
+		<p>This repository contains basically the source files of the cursor but also a wizard script to help you automatically create all the necessary files to use this cursor.</p>
+		<p>For any installation of this cursor, some common dependencies must be satisfied, that you will need to install before trying to do anything else:</p>
 		<ul>
 			<li>Ruby</li>
 			<p>This is the programming language used in the wizard script.</p>
@@ -26,13 +22,13 @@
 				<pre><code>cd dragon_byte</code></pre>
 				<li>Execute the wizard script using the <code>create-web-port</code> command.</li>
 				<pre><code>ruby scripts/wizard.rb create-web-port</code></pre>
-				<p>This will create the directory <code>distributions</code> in the repository's root directory containing all the required files for your web project:</p>
+				<p>This will create the directory <code>dragon_byte</code> in the repository's root directory containing all the required files for your web project:</p>
 				<ul>
-					<li>Images of the cursor will be under <code>distributions/cursors</code> in PNG format.</li>
-					<li>A stylesheet containing variables will be at <code>distributions/dragon_byte.css</code>.</li>
-					<li>A copy of the license of this project will be at <code>distributions/LICENSE</code>.</li>
+					<li>Images of the cursor will be under <code>dragon_byte/cursors</code> in PNG format.</li>
+					<li>A stylesheet containing variables will be at <code>dragon_byte/dragon_byte.css</code>.</li>
+					<li>A copy of the license of this project will be at <code>dragon_byte/LICENSE</code>.</li>
 				</ul>
-				<li>Copy the <code>distributions</code> directory created to a formidable directory in your web project.</li>
+				<li>Copy the <code>dragon_byte</code> directory created to a formidable directory in your web project.</li>
 				<li>Import the stylesheet file <code>dragon_byte.css</code> of the directory you have just copied inside your <code>HTML</code> file. You can use a <code>link</code> tag for that. Here is a template that you can use:</li>
 				<pre><code>
 &lt;link
@@ -59,17 +55,17 @@ body
 			<pre><code>cd dragon_byte</code></pre>
 			<li>Execute the wizard script using the <code>create-x11-port</code> command.</li>
 			<pre><code>ruby scripts/wizard.rb create-x11-port</code></pre>
-			<p>This will create the directory <code>distributions</code> in the repository's root directory containing all the required files for X11:</p>
+			<p>This will create the directory <code>dragon_byte</code> in the repository's root directory containing all the required files for X11:</p>
 			<ul>
-				<li>The cursor files will be under <code>distributions/cursors</code>.</li>
-				<li>A file containing the metadata of the cursor will be at <code>distributions/index.theme</code>.</li>
-				<li>A copy of the license of this project will be at <code>distributions/LICENSE</code>.</li>
+				<li>The cursor files will be under <code>dragon_byte/cursors</code>.</li>
+				<li>A file containing the metadata of the cursor will be at <code>dragon_byte/index.theme</code>.</li>
+				<li>A copy of the license of this project will be at <code>dragon_byte/LICENSE</code>.</li>
 			</ul>
-			<li>Move the <code>distributions</code> directory created to your user's icons directory. You might have to create it first:</li>
+			<li>Move the <code>dragon_byte</code> directory created to your user's icons directory. You might have to create it first:</li>
 			<pre><code>mkdir -p ${HOME}/.local/share/icons</code></pre>
 			<p>The flag <code>-p</code> specified to <code>mkdir</code> to create all the directories recursively if they do not exist.</p>
 			<p>Assuming that you are in the repository's root directory:</p>
-			<pre><code>mv -r distributions ${HOME}/.local/share/icons/dragon_byte</code></pre>
+			<pre><code>mv -r dragon_byte ${HOME}/.local/share/icons</code></pre>
 			<p>The flag <code>-r</code> specifies to <code>mv</code> that you want to move a directory recursively: moving it and its contents too.</p>
 			<li>Apply the cursor using your system's settings application or by using an Xresource rule.</p>
 			<li>Restart X11 for your changes to be properly set.</li>
