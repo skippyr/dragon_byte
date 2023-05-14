@@ -51,10 +51,12 @@ class X11CursorCreator
 		source_files_directory_path,
 		source_images_directory_path,
 		distribution_directory_path,
+		license_file_path,
 		cursor
 	)
 		@source_images_directory_path = source_images_directory_path
 		@distribution_directory_path = distribution_directory_path
+		@license_file_path = license_file_path
 		@distribution_cursors_directory_path = File.join(
 			distribution_directory_path,
 			"cursors"
@@ -70,11 +72,15 @@ class X11CursorCreator
 		@source_images_creator.create_source_images()
 		FileUtils.rm_rf(@distribution_directory_path)
 		FileUtils.mkdir_p(@distribution_cursors_directory_path)
-		self.write_metadata_file()
+		metadata_file_path = File.join(
+			@distribution_directory_path,
+			"index.theme"
+		)
 		settings_file_path = File.join(
 			@distribution_directory_path,
 			"settings"
 		)
+		self.write_metadata_file(metadata_file_path)
 		for cursor_file in @cursor.get_files()
 			self.write_settings_file(
 				settings_file_path,
@@ -84,16 +90,26 @@ class X11CursorCreator
 				@distribution_cursors_directory_path,
 				cursor_file.get_name()
 			)}")
+			for symlink in cursor_file.get_symlinks()
+				symlink_path = File.join(
+					@distribution_cursors_directory_path,
+					symlink
+				)
+				File.symlink(
+					cursor_file.get_name(),
+					symlink_path
+				)
+			end
 		end
 		FileUtils.rm_rf(settings_file_path)
+		FileUtils.cp(
+			@license_file_path,
+			@distribution_directory_path
+		)
 	end
 
 	private
-	def write_metadata_file()
-		metadata_file_path = File.join(
-			@distribution_directory_path,
-			"index.theme"
-		)
+	def write_metadata_file(metadata_file_path)
 		File.write(
 			metadata_file_path,
 			"[Icon Theme]\nName=#{@cursor.get_name()}"
