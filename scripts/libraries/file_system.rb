@@ -3,3 +3,4 @@ class Path
 		File.basename(file_path, ".*")
 	end
 end
+
