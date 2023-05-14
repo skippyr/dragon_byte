@@ -1,43 +1,43 @@
-class Images
-	@temporary_directory = Directory.new(File.join(
-		Project.get_images_directory.get_path,
-		"temporary"
-	))
-	
-	def self.create_composite_command(layers)
-		layers_command = []
+class SourceImagesCreator
+	def initialize(source_files_directory_path, source_images_directory_path)
+		@source_files_directory_path = source_files_directory_path
+		@source_images_directory_path = source_images_directory_path
+		@temporary_images_directory_path = File.join(source_images_directory_path, "temporary")
+	end
+
+	def create_source_images
+		FileUtils.rm_rf(@source_images_directory_path)
+		FileUtils.mkdir_p(@temporary_images_directory_path)
+		for source_file in Dir.children(@source_files_directory_path)
+			self.create_source_image_layers(source_file)
+			self.create_source_image_from_layers(source_file)
+		end
+		FileUtils.rm_rf(@temporary_images_directory_path)
+	end
+
+	private
+	def create_source_image_layers(source_file)
+		source_file_path = File.join(@source_files_directory_path, source_file)
+		layers_path = "#{File.join(@temporary_images_directory_path, Path.get_name_without_extension(source_file))}.png"
+		system("convert #{source_file_path} #{layers_path}")
+	end
+
+	def create_composite_command(layers)
+		composite_command = []
 		for layer_iterator in 0..layers.length - 1
 			layer = layers[layer_iterator]
-			layers_command << layer.get_path
+			composite_command << File.join(@temporary_images_directory_path, layer)
 			if layer_iterator > 0
-				layers_command << "-composite"
+				composite_command << "-composite"
 			end
 		end
-		layers_command.join(" ")
+		composite_command.join(" ")
 	end
 
-	def self.create_temporary_image_layers(source_file)
-		system("convert #{source_file.get_path} #{File.join(
-			@temporary_directory.get_path,
-			source_file.get_name_without_extension
-		)}.png")
-	end
-
-	def self.create_temporary_image_from_layers(source_file)
-		layers = @temporary_directory.get_entries
-		system("convert #{self.create_composite_command(layers)} #{File.join(
-			Project.get_images_directory.get_path,
-			source_file.get_name_without_extension
-		)}.png")
-	end
-
-	def self.create
-		for source_file in Project.get_source_files_directory.get_entries
-			@temporary_directory.replace
-			self.create_temporary_image_layers(source_file)
-			self.create_temporary_image_from_layers(source_file)
-		end
-		@temporary_directory.remove
+	def create_source_image_from_layers(source_file)
+		source_image_path = File.join(Project.get_source_images_directory_path(), "#{Path.get_name_without_extension(source_file)}.png")
+		layers = Dir.children(@temporary_images_directory_path)
+		system("convert #{self.create_composite_command(layers)} #{source_image_path}")
 	end
 end
 

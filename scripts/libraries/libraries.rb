@@ -1,10 +1,8 @@
 require("fileutils")
-require_relative("project")
-require_relative("file_system")
-require_relative("images")
-require_relative("geometry")
-require_relative("cursor")
-require_relative("arguments")
-require_relative("errors")
-require_relative("help")
+
+for file in Dir.children(__dir__)
+	if file != File.basename(__FILE__)
+		require_relative(file)
+	end
+end
 
