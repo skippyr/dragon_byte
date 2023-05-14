@@ -106,6 +106,7 @@ class X11CursorCreator
 			@license_file_path,
 			@distribution_directory_path
 		)
+		FileUtils.rm_rf(@source_images_directory_path)
 	end
 
 	private
@@ -126,6 +127,70 @@ class X11CursorCreator
 				@source_images_directory_path,
 				cursor_file.get_name()
 			)}.png 0"
+		)
+	end
+end
+
+class CSSCursorCreator
+	def initialize(
+		source_files_directory_path,
+		source_images_directory_path,
+		distribution_directory_path,
+		license_file_path,
+		cursor
+	)
+		@source_images_directory_path = source_images_directory_path
+		@distribution_directory_path = distribution_directory_path
+		@license_file_path = license_file_path
+		@distribution_cursors_directory_path = File.join(
+			distribution_directory_path,
+			"cursors"
+		)
+		@cursor = cursor
+		@source_images_creator = SourceImagesCreator.new(
+			source_files_directory_path,
+			source_images_directory_path
+		)
+	end
+
+	def create_cursor()
+		@source_images_creator.create_source_images()
+		FileUtils.rm_rf(@distribution_directory_path)
+		FileUtils.mkdir_p(@distribution_cursors_directory_path)
+		for source_image in Dir.children(@source_images_directory_path)
+			source_image_path = File.join(
+				@source_images_directory_path,
+				source_image
+			)
+			FileUtils.cp(
+				source_image_path,
+				@distribution_cursors_directory_path
+			)
+		end
+		stylesheets_path = File.join(
+			@distribution_directory_path,
+			"dragon_byte.css"
+		)
+		self.write_stylesheets(stylesheets_path)
+		FileUtils.cp(
+			@license_file_path,
+			@distribution_directory_path
+		)
+		FileUtils.rm_rf(@source_images_directory_path)
+	end
+
+	private
+	def write_stylesheets(stylesheets_path)
+		contents = ":root\n{\n"
+		for cursor_file in @cursor.get_files()
+			for css_name in cursor_file.get_css_names()
+				contents << "\t--dragon-byte-#{css_name}:\n\t\turl(\"./cursors/#{cursor_file.get_name()}.png\") #{cursor_file.get_hotspot().get_x()} #{cursor_file.get_hotspot().get_y()},\n\t\t#{css_name};\n"
+			end
+		end
+		contents << "}\n"
+		File.write(
+			stylesheets_path,
+			contents
 		)
 	end
 end
