@@ -27,7 +27,7 @@ if Arguments.is_to_create_web_port?()
 		Project.get_source_images_directory_path(),
 		Project.get_distribution_directory_path(),
 		Project.get_license_file_path(),
-		Project.get_cursor
+		Project.get_cursor()
 	).create_cursor()
 	puts("Created web port at: #{Project.get_distribution_directory_path()}.")
 elsif Arguments.is_to_create_x11_port?()
@@ -36,7 +36,7 @@ elsif Arguments.is_to_create_x11_port?()
 		Project.get_source_images_directory_path(),
 		Project.get_distribution_directory_path(),
 		Project.get_license_file_path(),
-		Project.get_cursor
+		Project.get_cursor()
 	).create_cursor()
 	puts("Created X11 port at: #{Project.get_distribution_directory_path()}.")
 else
