@@ -1,9 +1,15 @@
 // @ts-check
 
 import path from "path"
-import { Directory } from "./file_system.js"
+import {
+	Directory,
+	File,
+	Symlink,
+	ZIPFile
+} from "./file_system.js"
 import { Coordinate } from "./geometry.js"
-import { SourceImagesCreator } from "./images"
+import { SourceImagesCreator } from "./images.js"
+import { Command } from "./commands.js"
 
 export class CursorFile
 {
@@ -48,6 +54,10 @@ export class CursorFile
 	getCSSNames()
 	{ return (this.#CSSNames) }
 
+	/** @returns {number} */
+	getSizeInPixels()
+	{ return (this.#sizeInPixels) }
+
 	/** @returns {Coordinate} */
 	getHotspot()
 	{ return (this.#hotspot) }
@@ -55,6 +65,22 @@ export class CursorFile
 	/** @returns {string[]} */
 	getSymlinkDestinationPaths()
 	{ return (this.#symlinkDestinationPaths) }
+
+	/**
+	 * @param {File} settingsFile
+	 * @param {Directory} cursorsDirectory
+	 * @returns {void}
+	 */
+	create(
+		settingsFile,
+		cursorsDirectory
+	)
+	{
+		new Command(`xcursorgen ${settingsFile.getPath()} > ${path.join(
+			cursorsDirectory.getPath(),
+			this.#name
+		)}`).run()
+	}
 }
 
 export class Cursor
@@ -128,7 +154,72 @@ export class X11CursorCreator
 		)
 	}
 
+	/** @param {File} metadataFile */
+	#writeMetadataFile(metadataFile)
+	{ metadataFile.write(`[Icon Theme]\nName=${this.#cursor.getName()}`) }
+
+	/**
+	 * @param {File} settingsFile
+	 * @param {CursorFile} cursorFile
+	 */
+	#writeSettingsFile(
+		settingsFile,
+		cursorFile
+	)
+	{
+		const durationOfFrameInMiliseconds = 0
+		settingsFile.write(`${cursorFile.getSizeInPixels()} ${cursorFile.getHotspot().getX()} ${cursorFile.getHotspot().getY()} ${path.join(
+			this.#sourceImagesDirectory.getPath(),
+			cursorFile.getName()
+		)}.png ${durationOfFrameInMiliseconds}`)
+	}
+
+	/** @returns {void} */
 	create()
-	{}
+	{
+		const metadataFile = new File(path.join(
+			this.#outputDirectory.getPath(),
+			"index.theme"
+		))
+		const settingsFile = new File(path.join(
+			this.#outputDirectory.getPath(),
+			"settings.cfg"
+		))
+		this.#sourceImagesCreator.create()
+		this.#outputDirectory.replace()
+		this.#cursorsDirectory.create()
+		this.#writeMetadataFile(metadataFile)
+		this.#cursor.getFiles().forEach(
+			(cursorFile) =>
+			{
+				this.#writeSettingsFile(
+					settingsFile,
+					cursorFile
+				)
+				cursorFile.create(
+					settingsFile,
+					this.#cursorsDirectory
+				)
+				settingsFile.remove()
+				new Symlink(
+					cursorFile.getName(),
+					cursorFile.getSymlinkDestinationPaths().map(
+						(destinationPath) =>
+						{
+							return (path.join(
+								this.#cursorsDirectory.getPath(),
+								destinationPath
+							))
+						}
+					)
+				).create()
+			}
+		)
+		new ZIPFile(
+			`${this.#outputDirectory.getPath()}.zip`,
+			this.#outputDirectory.getPath()
+		).create()
+		this.#outputDirectory.remove()
+	}
 }
 

@@ -6,6 +6,7 @@ import {
 	FILE_EXISTS_ERROR_CODE,
 	FILE_DO_NOT_EXIST_ERROR_CODE
 } from "./errors.js"
+import { Command } from "./commands.js"
 
 export class DirectoryEntry
 {
@@ -84,7 +85,7 @@ export class Directory
 				force: true
 			}
 		)
-}
+	}
 
 	/** @returns {void} */
 	replace()
@@ -143,6 +144,7 @@ export class Symlink
 		this.#destinationPaths = destinationPaths
 	}
 
+	/** @returns {void} */
 	create()
 	{
 		this.#destinationPaths.forEach(
@@ -163,5 +165,65 @@ export class Symlink
 			}
 		)
 	}
+}
+
+export class File
+{
+	/** @type {string} */
+	#path
+
+	/** @param {string} path */
+	constructor(path)
+	{ this.#path = path }
+
+	/** @returns {string} */
+	getPath()
+	{ return (this.#path) }
+
+	/** @param {string} content */
+	write(content)
+	{
+		fs.writeFileSync(
+			this.#path,
+			content
+		)
+	}
+
+	/** @returns {void} */
+	remove()
+	{
+		fs.rmSync(
+			this.#path,
+			{
+				recursive: true,
+				force: true
+			}
+		)
+	}
+}
+
+export class ZIPFile
+{
+	/** @type {string} */
+	#path
+	/** @type {string} */
+	#contentPath
+
+	/**
+	 * @param {string} path
+	 * @param {string} contentPath
+	 */
+	constructor(
+		path,
+		contentPath
+	)
+	{
+		this.#path = path
+		this.#contentPath = contentPath
+	}
+
+	/** @returns {void} */
+	create()
+	{ new Command(`cd ${path.dirname(this.#contentPath)}; zip -r ${this.#path} ${path.basename(this.#contentPath)}`).run() }
 }
 
