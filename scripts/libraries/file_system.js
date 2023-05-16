@@ -61,7 +61,12 @@ export class Directory
 	create()
 	{
 		try
-		{ fs.mkdirSync(this.#path) }
+		{
+			fs.mkdirSync(
+				this.#path,
+				{ recursive: true }
+			)
+		}
 		catch (error)
 		{
 			if (error.code != FILE_EXISTS_ERROR_CODE)
@@ -72,13 +77,20 @@ export class Directory
 	/** @returns {void} */
 	remove()
 	{
-		try
-		{ fs.rmdirSync(this.#path) }
-		catch (error)
-		{
-			if (error.code != FILE_DO_NOT_EXIST_ERROR_CODE)
-			{ throw (error) }
-		}
+		fs.rmSync(
+			this.#path,
+			{
+				recursive: true,
+				force: true
+			}
+		)
+}
+
+	/** @returns {void} */
+	replace()
+	{
+		this.remove()
+		this.create()
 	}
 
 	/** @returns {string} */
