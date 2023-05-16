@@ -119,6 +119,8 @@ export class X11CursorCreator
 	/** @type {Directory} */
 	#sourceImagesDirectory
 	/** @type {Directory} */
+	#distributionsDirectory
+	/** @type {Directory} */
 	#outputDirectory
 	/** @type {Directory} */
 	#cursorsDirectory
@@ -144,9 +146,10 @@ export class X11CursorCreator
 	{
 		this.#cursor = cursor
 		this.#sourceImagesDirectory = sourceImagesDirectory
+		this.#distributionsDirectory = distributionsDirectory
 		this.#outputDirectory = new Directory(path.join(
 			distributionsDirectory.getPath(),
-			"x11"
+			"dragon_byte"
 		))
 		this.#cursorsDirectory = new Directory(path.join(
 			this.#outputDirectory.getPath(),
@@ -223,7 +226,10 @@ export class X11CursorCreator
 		)
 		this.#licenseFile.copy(this.#outputDirectory)
 		new ZIPFile(
-			`${this.#outputDirectory.getPath()}.zip`,
+			`${path.join(
+				this.#distributionsDirectory.getPath(),
+				"x11"
+			)}.zip`,
 			this.#outputDirectory.getPath()
 		).create()
 		this.#outputDirectory.remove()
@@ -237,6 +243,8 @@ export class CSSCursorCreator
 	#cursor
 	/** @type {Directory} */
 	#sourceImagesDirectory
+	/** @type {Directory} */
+	#distributionsDirectory
 	/** @type {Directory} */
 	#outputDirectory
 	/** @type {Directory} */
@@ -263,9 +271,10 @@ export class CSSCursorCreator
 	{
 		this.#cursor = cursor
 		this.#sourceImagesDirectory = sourceImagesDirectory
+		this.#distributionsDirectory = distributionsDirectory
 		this.#outputDirectory = new Directory(path.join(
 			distributionsDirectory.getPath(),
-			"css"
+			"dragon_byte"
 		))
 		this.#cursorsDirectory = new Directory(path.join(
 			this.#outputDirectory.getPath(),
@@ -311,7 +320,10 @@ export class CSSCursorCreator
 		this.#writeStylesheetsFile(stylesheetsFile)
 		this.#licenseFile.copy(this.#outputDirectory)
 		new ZIPFile(
-			`${this.#outputDirectory.getPath()}.zip`,
+			`${path.join(
+				this.#distributionsDirectory.getPath(),
+				"css"
+			)}.zip`,
 			this.#outputDirectory.getPath()
 		).create()
 		this.#outputDirectory.remove()

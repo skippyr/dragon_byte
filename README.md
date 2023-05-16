@@ -8,7 +8,7 @@
 			<h4>For web project</h4>
 				<ul>
 					<li>Download the release of the cursor for web projects: <code>web.zip</code> and unzip it in a formidable directory in your machine.</li>
-					<li>Copy the <code>dragon_byte</code> directory unziped to a formidable directory in your web project.</li>
+					<li>Move the <code>css/dragon_byte</code> directory unziped to a formidable directory in your web project.</li>
 					<li>Import the stylesheet file <code>dragon_byte.css</code> of the directory you have just copied inside your <code>HTML</code> file. You can use a <code>link</code> tag for that. Here is a template that you can use:</li>
 					<pre><code>
 	&lt;link
@@ -27,17 +27,17 @@
 			<h4>For X11</h4>
 				<ul>
 					<li>Download the release of the cursor for X11: <code>x11.zip</code> and unzip it in a formidable directory in your machine.</li>
-					<li>Move the <code>dragon_byte</code> directory unziped to either:</li>
+					<li>Move the <code>x11/dragon_byte</code> directory unziped to either:</li>
 						<ul>
 							<li><code>/usr/share/icons</code> for a system wide installation (requires sudo privileges):</li>
 							<pre><code>
-	mkdir -p /usr/share/icons
-	mv dragon_byte /usr/share/icons
+mkdir -p /usr/share/icons
+mv x11/dragon_byte /usr/share/icons
 							</code></pre>
 							<li><code>${HOME}/.local/share/icons</code></pre> for a user installation:</li>
 							<pre><code>
-	mkdir -p ${HOME}/.local/share/icons
-	mv dragon_byte ${HOME}/.local/share/icons
+mkdir -p ${HOME}/.local/share/icons
+mv x11/dragon_byte ${HOME}/.local/share/icons
 							</code></pre>
 						</ul>
 					<li>Apply the cursor using your system's settings application or by using an Xresource rule.</p>
@@ -70,6 +70,7 @@ docker run -it --name dragon_byte --mount type=bind,source=$(pwd)/distributions,
 				</code></pre>
 				<p>This command will create and run a container called <code>dragon_byte</code>, and I recommend that you keep the same name as well.</p>
 			<li>Execute the <code>scripts/wizard.js</code> script using <code>node</code> to build all the ports automatically.</li>
+				<pre><code>node scripts/wizard.js</code></pre>
 				<p>The ports will be placed under the directory <code>distributions</code> in the repository's root directory already in a ZIP format, you just have to use them.</p>
 			<p>After creating those ports, you can exit the container using the <code>exit</code> command and safely delete it using these commands.</p>
 			<pre><code>
