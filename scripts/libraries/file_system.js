@@ -122,6 +122,26 @@ export class Directory
 			throw (error)
 		}
 	}
+
+	/**
+	 * @param {Directory} destinationDirectory
+	 * @returns {void}
+	 */
+	copyEntries(destinationDirectory)
+	{
+		this.getEntries().forEach(
+			(entry) =>
+			{
+				fs.copyFileSync(
+					entry.getPath(),
+					path.join(
+						destinationDirectory.getPath(),
+						entry.getName()
+					)
+				)
+			}
+		)
+	}
 }
 
 export class Symlink
@@ -165,6 +185,7 @@ export class Symlink
 			}
 		)
 	}
+
 }
 
 export class File
@@ -198,6 +219,21 @@ export class File
 				recursive: true,
 				force: true
 			}
+		)
+	}
+
+	/**
+	 * @param {Directory} destinationDirectory
+	 * @returns {void}
+	 */
+	copy(destinationDirectory)
+	{
+		fs.copyFileSync(
+			this.#path,
+			path.join(
+				destinationDirectory.getPath(),
+				path.basename(this.#path)
+			)
 		)
 	}
 }

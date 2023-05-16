@@ -1,7 +1,10 @@
 // @ts-check
 
 import path from "path"
-import { Directory } from "./file_system.js"
+import {
+	Directory,
+	File
+} from "./file_system.js"
 import {
 	Cursor,
 	CursorFile
@@ -38,6 +41,15 @@ export class Project
 		return (new Directory(path.join(
 			this.getRepositoryDirectory().getPath(),
 			"distributions"
+		)))
+	}
+
+	/** @returns {File} */
+	static getLicenseFile()
+	{
+		return (new File(path.join(
+			this.getRepositoryDirectory().getPath(),
+			"LICENSE"
 		)))
 	}
 

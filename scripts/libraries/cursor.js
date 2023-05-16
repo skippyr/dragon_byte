@@ -71,7 +71,7 @@ export class CursorFile
 	 * @param {Directory} cursorsDirectory
 	 * @returns {void}
 	 */
-	create(
+	createForX11(
 		settingsFile,
 		cursorsDirectory
 	)
@@ -122,6 +122,8 @@ export class X11CursorCreator
 	#outputDirectory
 	/** @type {Directory} */
 	#cursorsDirectory
+	/** @type {File} */
+	#licenseFile
 	/** @type {SourceImagesCreator} */
 	#sourceImagesCreator
 
@@ -130,12 +132,14 @@ export class X11CursorCreator
 	 * @param {Directory} sourceFilesDirectory
 	 * @param {Directory} sourceImagesDirectory
 	 * @param {Directory} distributionsDirectory
+	 * @param {File} licenseFile
 	 */
 	constructor(
 		cursor,
 		sourceFilesDirectory,
 		sourceImagesDirectory,
-		distributionsDirectory
+		distributionsDirectory,
+		licenseFile
 	)
 	{
 		this.#cursor = cursor
@@ -148,6 +152,7 @@ export class X11CursorCreator
 			this.#outputDirectory.getPath(),
 			"cursors"
 		))
+		this.#licenseFile = licenseFile
 		this.#sourceImagesCreator = new SourceImagesCreator(
 			sourceFilesDirectory,
 			sourceImagesDirectory
@@ -161,6 +166,7 @@ export class X11CursorCreator
 	/**
 	 * @param {File} settingsFile
 	 * @param {CursorFile} cursorFile
+	 * @returns {void}
 	 */
 	#writeSettingsFile(
 		settingsFile,
@@ -196,7 +202,7 @@ export class X11CursorCreator
 					settingsFile,
 					cursorFile
 				)
-				cursorFile.create(
+				cursorFile.createForX11(
 					settingsFile,
 					this.#cursorsDirectory
 				)
@@ -215,6 +221,94 @@ export class X11CursorCreator
 				).create()
 			}
 		)
+		this.#licenseFile.copy(this.#outputDirectory)
+		new ZIPFile(
+			`${this.#outputDirectory.getPath()}.zip`,
+			this.#outputDirectory.getPath()
+		).create()
+		this.#outputDirectory.remove()
+	}
+}
+
+export class CSSCursorCreator
+{
+	/** @type {Cursor} */
+	#cursor
+	/** @type {Directory} */
+	#sourceImagesDirectory
+	/** @type {Directory} */
+	#outputDirectory
+	/** @type {Directory} */
+	#cursorsDirectory
+	/** @type {File} */
+	#licenseFile
+	/** @type {SourceImagesCreator} */
+	#sourceImagesCreator
+
+	/**
+	 * @param {Cursor} cursor
+	 * @param {Directory} sourceFilesDirectory
+	 * @param {Directory} sourceImagesDirectory
+	 * @param {Directory} distributionsDirectory
+	 * @param {File} licenseFile
+	 */
+	constructor(
+		cursor,
+		sourceFilesDirectory,
+		sourceImagesDirectory,
+		distributionsDirectory,
+		licenseFile
+	)
+	{
+		this.#cursor = cursor
+		this.#sourceImagesDirectory = sourceImagesDirectory
+		this.#outputDirectory = new Directory(path.join(
+			distributionsDirectory.getPath(),
+			"css"
+		))
+		this.#cursorsDirectory = new Directory(path.join(
+			this.#outputDirectory.getPath(),
+			"cursors"
+		))
+		this.#licenseFile = licenseFile
+		this.#sourceImagesCreator = new SourceImagesCreator(
+			sourceFilesDirectory,
+			sourceImagesDirectory
+		)
+	}
+
+	/**
+	 * @param {File} stylesheetsFile 
+	 * @returns {void}
+	 */
+	#writeStylesheetsFile(stylesheetsFile)
+	{
+		stylesheetsFile.write(`:root {\n${
+			this.#cursor.getFiles().map(
+				(cursorFile) =>
+				{
+					return (cursorFile.getCSSNames().map(
+						(cssName) =>
+						{ return (`\t--dragon-byte-${cssName}:\n\t\t\"./cursors/${cursorFile.getName()}.png\" ${cursorFile.getHotspot().getX()} ${cursorFile.getHotspot().getY()},\n\t\t${cssName};`) }
+					)).join("\n")
+				}
+			).join("")
+		}\n}`)
+	}
+
+	/** @returns {void} */
+	create()
+	{
+		const stylesheetsFile = new File(path.join(
+			this.#outputDirectory.getPath(),
+			"dragon_byte.css"
+		))
+		this.#sourceImagesCreator.create()
+		this.#outputDirectory.replace()
+		this.#cursorsDirectory.create()
+		this.#sourceImagesDirectory.copyEntries(this.#cursorsDirectory)
+		this.#writeStylesheetsFile(stylesheetsFile)
+		this.#licenseFile.copy(this.#outputDirectory)
 		new ZIPFile(
 			`${this.#outputDirectory.getPath()}.zip`,
 			this.#outputDirectory.getPath()

@@ -1,13 +1,23 @@
 // @ts-check
 
 import { Project } from "./libraries/project.js"
-import { X11CursorCreator } from "./libraries/cursor.js"
+import {
+	X11CursorCreator,
+	CSSCursorCreator
+} from "./libraries/cursor.js"
 
-const cursorCreator = new X11CursorCreator(
+new X11CursorCreator(
 	Project.getCursor(),
 	Project.getSourceFilesDirectory(),
 	Project.getSourceImagesDirectory(),
-	Project.getDistributionsDirectory()
-)
-cursorCreator.create()
+	Project.getDistributionsDirectory(),
+	Project.getLicenseFile()
+).create()
+new CSSCursorCreator(
+	Project.getCursor(),
+	Project.getSourceFilesDirectory(),
+	Project.getSourceImagesDirectory(),
+	Project.getDistributionsDirectory(),
+	Project.getLicenseFile()
+).create()
 
