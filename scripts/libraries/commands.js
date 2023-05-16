@@ -9,6 +9,7 @@ export class Command
 	constructor(command)
 	{ this.#command = command }
 
+	/** @returns {void} */
 	run()
 	{ childProcess.execSync(this.#command) }
 }

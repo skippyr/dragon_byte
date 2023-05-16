@@ -40,19 +40,19 @@ class SourceImage
 	 */
 	#createCompositeCommand()
 	{
-		return new Command(`convert ${(this.#layersDirectory.getEntries().map(
+		return (new Command(`convert ${(this.#layersDirectory.getEntries().map(
 			(
 				layer,
 				index
 			) =>
 			{
-				return `${layer.getPath()}${
+				return (`${layer.getPath()}${
 					index > 0 ?
 					" -composite" :
 					""
-				}`
+				}`)
 			}
-		).join(" "))} ${this.#path}`)
+		).join(" "))} ${this.#path}`))
 	}
 
 	/**

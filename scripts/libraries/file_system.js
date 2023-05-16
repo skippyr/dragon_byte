@@ -31,20 +31,20 @@ export class DirectoryEntry
 
 	/** @returns {string} */
 	getPath()
-	{ return this.#path }
+	{ return (this.#path) }
 
 	/** @returns {string} */
 	getName()
-	{ return this.#name }
+	{ return (this.#name) }
 
 	/** @returns {string} */
 	getNameWithoutExtension()
 	{
 		const splits = this.#name.split(".")
 		if (splits.length == 1)
-		{ return this.#name }
+		{ return (this.#name) }
 		splits.pop()
-		return splits.join(".")
+		return (splits.join("."))
 	}
 }
 
@@ -118,7 +118,7 @@ export class Directory
 		{
 			if (error.code == FILE_DO_NOT_EXIST_ERROR_CODE)
 			{ return ([]) }
-			throw error
+			throw (error)
 		}
 	}
 }
