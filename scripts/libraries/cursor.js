@@ -292,7 +292,7 @@ export class CSSCursorCreator
 						{ return (`\t--dragon-byte-${cssName}:\n\t\t\"./cursors/${cursorFile.getName()}.png\" ${cursorFile.getHotspot().getX()} ${cursorFile.getHotspot().getY()},\n\t\t${cssName};`) }
 					)).join("\n")
 				}
-			).join("")
+			).join("\n")
 		}\n}`)
 	}
 
