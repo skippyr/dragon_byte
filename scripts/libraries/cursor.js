@@ -11,18 +11,44 @@ export class CursorFile
 	#name
 	/** @type {string[]} */
 	#CSSNames
+	/** @type {number} */
+	#sizeInPixels
 	/** @type {Coordinate} */
 	#hotspot
 	/** @type {string[]} */
 	#symlinkDestinationPaths
 
+	/**
+	 * @param {string} name
+	 * @param {string[]} CSSNames
+	 * @param {number} sizeInPixels
+	 * @param {Coordinate} hotspot
+	 * @param {string[]} symlinkDestinationPaths
+	 */
+	constructor(
+		name,
+		CSSNames,
+		sizeInPixels,
+		hotspot,
+		symlinkDestinationPaths
+	)
+	{
+		this.#name = name
+		this.#CSSNames = CSSNames
+		this.#sizeInPixels = sizeInPixels
+		this.#hotspot = hotspot
+		this.#symlinkDestinationPaths = symlinkDestinationPaths
+	}
+
 	/** @returns {string} */
 	getName()
 	{ return (this.#name) }
 
+	/** @returns {string[]} */
 	getCSSNames()
 	{ return (this.#CSSNames) }
 
+	/** @returns {Coordinate} */
 	getHotspot()
 	{ return (this.#hotspot) }
 
@@ -75,9 +101,9 @@ export class X11CursorCreator
 
 	/**
 	 * @param {Cursor} cursor
-	 * @param {Directory} sourceFilesDirectory 
-	 * @param {Directory} sourceImagesDirectory 
-	 * @param {Directory} distributionsDirectory 
+	 * @param {Directory} sourceFilesDirectory
+	 * @param {Directory} sourceImagesDirectory
+	 * @param {Directory} distributionsDirectory
 	 */
 	constructor(
 		cursor,
