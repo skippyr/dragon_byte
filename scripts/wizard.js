@@ -1,12 +1,5 @@
 // @ts-check
 
-import { Project } from "./libraries/project.js"
-import { SourceImagesCreator } from "./libraries/images.js"
+import { X11CursorCreator } from "./libraries/cursor.js"
 
-/** @type {SourceImagesCreator} */
-const sourceImagesCreator = new SourceImagesCreator(
-	Project.getSourceFilesDirectory(),
-	Project.getSourceImagesDirectory()
-)
-sourceImagesCreator.createSourceImages()
 

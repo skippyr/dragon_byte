@@ -22,7 +22,7 @@
 			<li>Ok, finally, the great finalle: let's create and run a Docker container interactively by using the image created in the previous step.</li>
 				<p>I will create and mount some directories of the host's file system in the container so you will be able to access the source images created and also the build. All the directories created are ignored in the <code>.gitignore</code>:</p>
 			<pre><code>
-mkdir -p source_images dragon_byte
+mkdir -p source_images distributions
 docker run -it --mount type=bind,source=$(pwd)/source_images,target=/root/development/dragon_byte/source_images --mount type=bind,source=$(pwd)/distributions,target=/root/development/dragon_byte/distributions dragon_byte
 			</code></pre>
 				<p>This command will do exactly what was explained. Here is a little explanation in the file architecture used:</p>

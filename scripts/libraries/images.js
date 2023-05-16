@@ -97,7 +97,7 @@ export class SourceImagesCreator
 	}
 
 	/** @returns {void} */
-	createSourceImages()
+	create()
 	{
 		this.#sourceFilesDirectory.getEntries().forEach(
 			(sourceFile) =>

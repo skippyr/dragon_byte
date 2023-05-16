@@ -123,3 +123,45 @@ export class Directory
 	}
 }
 
+export class Symlink
+{
+	/** @type {string} */
+	#originPath
+	/** @type {string[]} */
+	#destinationPaths
+
+	/**
+	 * @param {string} originPath
+	 * @param {string[]} destinationPaths
+	 */
+	constructor(
+		originPath,
+		destinationPaths
+	)
+	{
+		this.#originPath = originPath
+		this.#destinationPaths = destinationPaths
+	}
+
+	create()
+	{
+		this.#destinationPaths.forEach(
+			(destinationPath) =>
+			{
+				try
+				{
+					fs.symlinkSync(
+						this.#originPath,
+						destinationPath
+					)
+				}
+				catch (error)
+				{
+					if (error.code != FILE_EXISTS_ERROR_CODE)
+					{ throw (error) }
+				}
+			}
+		)
+	}
+}
+
