@@ -1,17 +1,63 @@
+// @ts-check
+
+import path from "path"
 import fs from "fs"
 import {
 	FILE_EXISTS_ERROR_CODE,
 	FILE_DO_NOT_EXIST_ERROR_CODE
 } from "./errors.js"
 
+export class DirectoryEntry
+{
+	/** @type {string} */
+	#path
+	#name
+
+	/**
+	 * @param {Directory} directory
+	 * @param {string} name
+	 */
+	constructor(
+		directory,
+		name
+	)
+	{
+		this.#path = path.join(
+			directory.getPath(),
+			name
+		)
+		this.#name = name
+	}
+
+	/** @returns {string} */
+	getPath()
+	{ return this.#path }
+
+	/** @returns {string} */
+	getName()
+	{ return this.#name }
+
+	/** @returns {string} */
+	getNameWithoutExtension()
+	{
+		const splits = this.#name.split(".")
+		if (splits.length == 1)
+		{ return this.#name }
+		splits.pop()
+		return splits.join(".")
+	}
+}
 
 export class Directory
 {
+	/** @type {string} */
 	#path
 
+	/** @param {string} path */
 	constructor(path)
 	{ this.#path = path }
 
+	/** @returns {void} */
 	create()
 	{
 		try
@@ -19,10 +65,11 @@ export class Directory
 		catch (error)
 		{
 			if (error.code != FILE_EXISTS_ERROR_CODE)
-			{ throw error }
+			{ throw (error) }
 		}
 	}
 
+	/** @returns {void} */
 	remove()
 	{
 		try
@@ -30,11 +77,37 @@ export class Directory
 		catch (error)
 		{
 			if (error.code != FILE_DO_NOT_EXIST_ERROR_CODE)
-			{ throw error }
+			{ throw (error) }
 		}
 	}
 
+	/** @returns {string} */
 	getPath()
-	{ return this.#path }
+	{ return (this.#path) }
+
+	/** @returns {DirectoryEntry[]} */
+	getEntries()
+	{
+		try
+		{
+			return (
+				fs.readdirSync(this.#path).map(
+					(directoryEntryName) =>
+					{
+						return (new DirectoryEntry(
+							this,
+							directoryEntryName
+						))
+					}
+				)
+			)
+		}
+		catch (error)
+		{
+			if (error.code == FILE_DO_NOT_EXIST_ERROR_CODE)
+			{ return ([]) }
+			throw error
+		}
+	}
 }
 
