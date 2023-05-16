@@ -11,16 +11,16 @@
 					<li>Move the <code>css/dragon_byte</code> directory unziped to a formidable directory in your web project.</li>
 					<li>Import the stylesheet file <code>dragon_byte.css</code> of the directory you have just copied inside your <code>HTML</code> file. You can use a <code>link</code> tag for that. Here is a template that you can use:</li>
 					<pre><code>
-	&lt;link
-		rel="stylesheet"
-		href=""
-	/&gt;
+&lt;link
+	rel="stylesheet"
+	href=""
+/&gt;
 					</code></pre>
 					<p>You still have to insert the relative path to include that stylesheet yourself, in the <code>href</code> attribute shown.</p>
 					<li>Write the CSS rules you need to apply the cursor inside the stylesheet that you imported. It already has all the necessary variables defined and in scope for you to do it. Every variable is prefixed with <code>dragon-byte</code> to make them unique. Want a usage example? What about applying the <code>default</code> cursor for your <code>body</code> element:</li>
 					<pre><code>
-	body
-	{ cursor: var(--dragon-byte-default); }
+body
+{ cursor: var(--dragon-byte-default); }
 					</code></pre>
 					<p>Applying the remaining variables of the cursor is up to you: you will have to manually apply them to your page elements.</p>
 				</ul>
