@@ -127,7 +127,153 @@ export class Project
 						21,
 						21
 					),
-					[ ]
+					[]
+				),
+				new CursorFile(
+					"watch",
+					[
+						"wait",
+						"progress"
+					],
+					sizeInPixels,
+					new Coordinate(
+						5,
+						2
+					),
+					[
+						"wait",
+						"progress",
+						"half-busy",
+						"left_ptr_watch"
+					]
+				),
+				new CursorFile(
+					"ew-resize",
+					[ "ew-resize" ],
+					sizeInPixels,
+					new Coordinate(
+						21,
+						21
+					),
+					[
+						"left_side",
+						"right_side",
+						"e-resize",
+						"w-resize",
+						"split_h",
+						"col-resize",
+						"sb_h_double_arrow",
+						"size_hor"
+					]
+				),
+				new CursorFile(
+					"zoom-in",
+					[ "zoom-in" ],
+					sizeInPixels,
+					new Coordinate(
+						5,
+						2
+					),
+					[]
+				),
+				new CursorFile(
+					"hand2",
+					[ "pointer" ],
+					sizeInPixels,
+					new Coordinate(
+						5,
+						2
+					),
+					[
+						"hand",
+						"hand1",
+						"grab",
+						"openhand"
+					]
+				),
+				new CursorFile(
+					"left_ptr",
+					[ "default" ],
+					sizeInPixels,
+					new Coordinate(
+						5,
+						2
+					),
+					[
+						"pointing_hand",
+						"right_ptr"
+					]
+				),
+				new CursorFile(
+					"nesw-resize",
+					[ "nesw-resize" ],
+					sizeInPixels,
+					new Coordinate(
+						21,
+						21
+					),
+					[
+						"ne-resize",
+						"sw-resize",
+						"top_right_corner",
+						"bottom_left_corner",
+						"size_bdiag"
+					]
+				),
+				new CursorFile(
+					"ns-resize",
+					[ "ns-resize" ],
+					sizeInPixels,
+					new Coordinate(
+						21,
+						21
+					),
+					[
+						"top_side",
+						"bottom_side",
+						"n-resize",
+						"s-resize",
+						"split_v",
+						"row-resize",
+						"sb_v_double_arrow",
+						"size_ver"
+					]
+				),
+				new CursorFile(
+					"nwse-resize",
+					[ "nwse-resize" ],
+					sizeInPixels,
+					new Coordinate(
+						21,
+						21
+					),
+					[
+						"nw-resize",
+						"se-resize",
+						"top_left_corner",
+						"bottom_right_corner",
+						"size_fdiag"
+					]
+				),
+				new CursorFile(
+					"xterm",
+					[ "text" ],
+					sizeInPixels,
+					new Coordinate(
+						21,
+						21
+					),
+					[ "text" ]
+				),
+				new CursorFile(
+					"zoom-out",
+					[ "zoom-out" ],
+					sizeInPixels,
+					new Coordinate(
+						5,
+						2
+					),
+					[]
 				)
 			]
 		))
