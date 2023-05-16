@@ -227,6 +227,7 @@ export class X11CursorCreator
 			this.#outputDirectory.getPath()
 		).create()
 		this.#outputDirectory.remove()
+		this.#sourceImagesDirectory.remove()
 	}
 }
 
@@ -314,6 +315,7 @@ export class CSSCursorCreator
 			this.#outputDirectory.getPath()
 		).create()
 		this.#outputDirectory.remove()
+		this.#sourceImagesDirectory.remove()
 	}
 }
 
