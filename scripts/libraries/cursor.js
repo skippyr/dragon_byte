@@ -299,7 +299,7 @@ export class CSSCursorCreator
 				{
 					return (cursorFile.getCSSNames().map(
 						(cssName) =>
-						{ return (`\t--dragon-byte-${cssName}:\n\t\t\"./cursors/${cursorFile.getName()}.png\" ${cursorFile.getHotspot().getX()} ${cursorFile.getHotspot().getY()},\n\t\t${cssName};`) }
+						{ return (`\t--dragon-byte-${cssName}:\n\t\turl(\"./cursors/${cursorFile.getName()}.png\") ${cursorFile.getHotspot().getX()} ${cursorFile.getHotspot().getY()},\n\t\t${cssName};`) }
 					)).join("\n")
 				}
 			).join("\n")
