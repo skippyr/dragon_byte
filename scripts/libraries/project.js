@@ -28,11 +28,11 @@ export class Project
 	}
 
 	/** @returns {Directory} */
-	static getDistributionDirectory()
+	static getDistributionsDirectory()
 	{
 		return (new Directory(path.join(
 			this.getRepositoryDirectory().getPath(),
-			"dragon_byte"
+			"distributions"
 		)))
 	}
 }

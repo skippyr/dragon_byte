@@ -18,17 +18,17 @@
 			<li>Now, let's create a Docker image from the Dockerfile that will be in the repository's root directory by using this command:</li>
 				<pre><code>docker build -t dragon_byte .</code></pre>
 				<p>This command will create a Docker image named <code>dragon_byte</code> with all the required dependencies to build it already installed on top of Arch Linux: a bledding-edge linux distribution, so everything will be up-to-date too.</p>
-				<p>I recommend that you keep the same for your image, as it will be used in the following examples too.</p>
+				<p>I recommend that you keep the same name for your image, as it will be used in the following examples too.</p>
 			<li>Ok, finally, the great finalle: let's create and run a Docker container interactively by using the image created in the previous step.</li>
 				<p>I will create and mount some directories of the host's file system in the container so you will be able to access the source images created and also the build. All the directories created are ignored in the <code>.gitignore</code>:</p>
 			<pre><code>
 mkdir -p source_images dragon_byte
-docker run -it --mount type=bind,source=$(pwd)/source_images,target=/root/development/dragon_byte/source_images --mount type=bind,source=$(pwd)/dragon_byte,target=/root/development/dragon_byte/dragon_byte dragon_byte
+docker run -it --mount type=bind,source=$(pwd)/source_images,target=/root/development/dragon_byte/source_images --mount type=bind,source=$(pwd)/distributions,target=/root/development/dragon_byte/distributions dragon_byte
 			</code></pre>
 				<p>This command will do exactly what was explained. Here is a little explanation in the file architecture used:</p>
 				<ul>
 					<li>the source images will be placed under the directory <code>source_images</code>.</li>
-					<li>the build created will be placed under the directory <code>dragon_byte</code>.</li>
+					<li>the builds created will be placed under the directory <code>distributions</code>.</li>
 				</ul>
 				<p>At this point, you must be already inside the container inside the repository's root directory.</p>
 			<li>Use <code>node</code> within the <code>scripts/wizard.js</code> script with the flag <code>--help</code> to print its help instructions and learn how to use it.</li>
