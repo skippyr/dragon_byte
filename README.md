@@ -8,7 +8,7 @@
 		<ul>
 			<li>Ruby</li>
 			<p>This is the programming language used in the wizard script.</p>
-			<li>ImageMagick</li>
+			<li>ImageMagick (at least, version 7.0.8-15)</li>
 			<p>This is the utility tool used to create PNG files from the source files.</p>
 		</ul>
 		<p>You will also need to download this repository. If you have <code>git</code> installed, you can do it using the following command:</p>
