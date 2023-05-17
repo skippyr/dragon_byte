@@ -6,6 +6,7 @@ import {
 	CSSCursorCreator
 } from "./libraries/cursor.js"
 
+console.log("Hold up a second while the ports are being created...")
 new X11CursorCreator(
 	Project.getCursor(),
 	Project.getSourceFilesDirectory(),
@@ -20,4 +21,6 @@ new CSSCursorCreator(
 	Project.getDistributionsDirectory(),
 	Project.getLicenseFile()
 ).create()
+console.log(`\x1b[1AAll ports have been stored at: \"${Project.getDistributionsDirectory().getPath()}\".`)
+console.log("They are ready to be distributed.")
 
