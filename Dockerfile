@@ -1,5 +1,5 @@
 FROM archlinux
-RUN pacman -Syu --noconfirm --needed zip nodejs imagemagick xorg-xcursorgen
+RUN pacman -Syu --noconfirm --needed ruby imagemagick xorg-xcursorgen zip
 WORKDIR /root/development/dragon_byte
 COPY . .
 
