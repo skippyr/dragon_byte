@@ -1,4 +1,29 @@
 class Project
+	def self.get_repository_directory()
+		Directory.new(File.dirname(File.dirname(File.dirname(__dir__))))
+	end
+
+	def self.get_sources_directory()
+		Directory.new(File.join(
+			self.get_repository_directory().get_path(),
+			"sources"
+		))
+	end
+
+	def self.get_distributions_directory()
+		Directory.new(File.join(
+			self.get_repository_directory().get_path(),
+			"distributions"
+		))
+	end
+
+	def self.get_images_directory()
+		Directory.new(File.join(
+			self.get_distributions_directory().get_path(),
+			"images"
+		))
+	end
+
 	def self.get_cursor()
 		corner_coordinate = Coordinate.new(
 			5,
