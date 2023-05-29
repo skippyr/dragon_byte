@@ -5,5 +5,5 @@ X11Port.new(
 	Project.get_images_creator(),
 	Project.get_distributions_directory(),
 	Project.get_license_file()
-).create()
+).create(ArgumentsParser.is_to_zip?())
 

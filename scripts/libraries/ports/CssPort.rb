@@ -23,7 +23,7 @@ class CssPort
 		@license_file = license_file
 	end
 
-	def create()
+	def create(is_to_zip)
 		@port_directory.replace()
 		@cursors_directory.create()
 		@images_creator.create()
@@ -46,6 +46,15 @@ class CssPort
 		end
 		stylesheet_file.append_content("}\n\n")
 		stylesheet_file.create()
+		if is_to_zip
+			ZipFile.new(
+				@port_directory,
+				File.join(
+					File.dirname(@port_directory.get_path()),
+					"css.zip"
+				)
+			).create()
+		end
 	end
 end
 

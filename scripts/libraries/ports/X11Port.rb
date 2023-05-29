@@ -23,7 +23,7 @@ class X11Port
 		@license_file = license_file
 	end
 
-	def create()
+	def create(is_to_zip)
 		@images_creator.create()
 		@port_directory.replace()
 		@cursors_directory.create()
@@ -57,6 +57,15 @@ class X11Port
 			end
 		end
 		settings_file.remove()
+		if is_to_zip
+			ZipFile.new(
+				@port_directory,
+				File.join(
+					File.dirname(@port_directory.get_path()),
+					"x11.zip"
+				)
+			).create()
+		end
 	end
 end
 

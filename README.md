@@ -74,6 +74,8 @@ docker run -it --name dragon_byte --mount type=bind,source=$(pwd)/distributions,
 					<p>Now, inside the running container, you can use the <code>ruby</code> interpreter to create all the desired ports, simply by running one of the scripts under the <code>scripts</code> directory. They all use a descriptive name, so you will find out what each of them build.</p>
 					<p>For example, to create the port for X11:</p>
 					<pre><code>ruby scripts/x11_port.rb</code></pre>
+					<p>You can also prefer to automatically ZIP the port created by using the <code>--zip</code> flag to any of the scripts. Using the same example as above, but now zipping the final result:</p>
+					<pre><code>ruby scripts/x11_port.rb --zip</code></pre>
 			</ul>
 			<p>All the ports will be placed inside the <code>distributions</code> directory inside the repository's root directory. As you have mounted that directory in your file system, you can access it directly in your host's file system too.</p>
 			<p>After creating the desired ports. Exit the container using the <code>exit</code> command. As you will not need them anymore, use the following commands to remove the container and container image created:</p>
