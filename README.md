@@ -1,6 +1,7 @@
 <h1>Dragon Byte</h1>
 	<h2>Starting Point</h2>
 		<p>A 42x42 pixels cursor with a dragon drawing that is available for web projects and X11.</p>
+		<img src="./images/preview.png"/>
 	<h2>Installation And Usage</h2>
 		<h3>Installing From Releases</h3>
 			<p>Ports of this cursor are available in the <code>Releases</code> page. You can download the latest release of the desired port and start using them by reading their installation instructions as following:</p>
@@ -43,12 +44,10 @@ mv x11/dragon_byte ${HOME}/.local/share/icons
 					<li>Restart X11 for your changes to be properly set.</li>
 				</ul>
 		<h3>Building From Source</h3>
-			<p>You can build the cursor for different ports by using a Docker container inside of a UNIX-like system: like MacOS or Linux, which will allow you to create a development environment with all the required dependencies easily.</p>
+			<p>You can build different ports of the cursor by using a Docker container inside of a UNIX-like system: like MacOS or Linux, which will allow you to create a development environment with all the required dependencies easily.</p>
+			<p>Unfortunely, Windows uses NTFS file system, so accessing the files created by a Linux container, which uses ext4 file system, may cause some incompatibily. If that is your case, you can try to run it using WSL (Windows Subsytem for Linux) or even on a virtual machine.</p>
 			<p>Let's get through the steps to do it:</p>
 			<ul>
-				<li>Ensure that you are running a UNIX-like system.</li>
-					<p>All the commands used in this section will use that type of system as a reference.</p>
-					<p>If you are using Windows, try running Linux inside of WSL (Windows Subsystem For Linux).</p>
 				<li>Install Docker and enable its daemon.</li>
 					<p>You can find all the information needed to install it in its <a href="https://docs.docker.com/get-docker/">official website</a>.</p>
 				<li>Download this repository.</li>
