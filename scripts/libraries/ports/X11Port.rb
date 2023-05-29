@@ -10,7 +10,7 @@ class X11Port
 		@port_directory = Directory.new(File.join(
 			distributions_directory.get_path(),
 			"x11",
-			"dragon_byte"
+			@cursor.get_name()
 		))
 		@cursors_directory = Directory.new(File.join(
 			@port_directory.get_path(),
@@ -27,6 +27,7 @@ class X11Port
 		@images_creator.create()
 		@port_directory.replace()
 		@cursors_directory.create()
+		@license_file.create()
 		metadata_file = RegularFile.new(File.join(
 			@port_directory.get_path(),
 			"index.theme"
@@ -37,7 +38,6 @@ class X11Port
 		))
 		metadata_file.set_content("[Icon Theme]\nName=#{@cursor.get_name()}\n")
 		metadata_file.create()
-		@license_file.create()
 		for cursor_part in @cursor.get_parts()
 			for x11_name in cursor_part.get_x11_names()
 				image_path = "#{File.join(

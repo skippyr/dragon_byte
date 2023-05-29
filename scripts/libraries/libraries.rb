@@ -9,4 +9,5 @@ require_relative("file_system/RegularFile")
 require_relative("images/ImagesCreator")
 require_relative("images/ImageMagick")
 require_relative("ports/X11Port")
+require_relative("ports/CssPort")
 

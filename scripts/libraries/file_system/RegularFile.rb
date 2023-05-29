@@ -1,6 +1,7 @@
 class RegularFile
 	def initialize(path)
 		@path = path
+		@content = ""
 	end
 
 	def get_path()
@@ -13,6 +14,10 @@ class RegularFile
 
 	def set_content(content)
 		@content = content
+	end
+
+	def append_content(content)
+		@content << content
 	end
 
 	def create()
