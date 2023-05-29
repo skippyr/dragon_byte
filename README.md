@@ -3,11 +3,14 @@
 		<p>A 42x42 pixels cursor with a dragon drawing that is available for web projects and X11.</p>
 	<h2>Installation And Usage</h2>
 		<h3>Building From Source</h3>
-			<p>You can build the cursor for different ports by using a Docker container, which will allow you to create a development environment with all the required dependencies easily.</p>
+			<p>You can build the cursor for different ports by using a Docker container inside of a UNIX-like system: like MacOS or Linux, which will allow you to create a development environment with all the required dependencies easily.</p>
 			<p>Let's get through the steps to do it:</p>
 			<ul>
+				<li>Ensure that you are running a UNIX-like system.</li>
+					<p>All the command used in this section will use that type of system as a reference.</p>
+					<p>If you are using Windows, try running Linux inside of WSL (Windows Subsystem For Linux).</p>
 				<li>Install Docker and enable its daemon.</li>
-					<p>Docker is a cross-platform application: you can use it on Windows, MacOS and Linux. You can find all the information needed to install it in its <a href="https://docs.docker.com/get-docker/">official website</a>.</p>
+					<p>You can find all the information needed to install it in its <a href="https://docs.docker.com/get-docker/">official website</a>.</p>
 				<li>Download this repository.</li>
 					<p>If you have <code>git</code> installed, you can download it by using the following command:</p>
 						<pre><code>git clone --depth=1 https://github.com/skippyr/dragon_byte</code></pre>
@@ -20,25 +23,29 @@
 					<pre><code>docker build -t dragon_byte .</code></pre>
 					<p>This command will create a Docker container image named <code>dragon_byte</code>. Even though it is possible to change that name, I recommend that you keep it the same.</p>
 					<p>The process of creating an image may take some time depending of your internet connection. This process can also throw some errors sometimes: saying that it could not retrive packages. That is normal! Just try to create it again.</p>
-				<li>Create and run Docker container interactively using the image created in the previous step.</li>
+				<li>Create and run a Docker container interactively using the image created in the previous step.</li>
 					<pre><code>
 mkdir distributions
-docker -it --name dragon_byte --mount type=bind,source=$(pwd)/distributions,target=/root/development/dragon_byte/distributions dragon_byte
+docker run -it --name dragon_byte --mount type=bind,source=$(pwd)/distributions,target=/root/development/dragon_byte/distributions dragon_byte
 					</code></pre>
 					<p>Worths to mention: to be able to access the images and ports created, you will need to mount a directory of your file system inside the container using a bind type.</p>
 					<p>In the command above, that directory will be the <code>distributions</code> directory that you will have create. It will be connected to the directory <code>/root/development/dragon_byte/distributions</code> inside the container, where the ports will be placed.</p>
-					<p>If you are using Windows, please substitute <code>$(pwd)</code> by the repository's directory path when you use the command. Otherwise, that will point to an invalid source directory.</p>
 				<li>Run the scripts to create the desired ports.</li>
 					<p>Now, inside the running container, you can use the <code>ruby</code> interpreter to create all the desired ports, simply by running one of the scripts under the <code>scripts</code> directory. They all use a descriptive name, so you will find out what each of them build.</p>
 					<p>For example, to create the port for X11:</p>
 					<pre><code>ruby scripts/x11_port.rb</code></pre>
 			</ul>
 			<p>All the ports will be placed inside the <code>distributions</code> directory inside the repository's root directory. As you have mounted that directory in your file system, you can access it directly in your host's file system too.</p>
-			<p>After creating the desired ports. Exit the container using the <code>exit</code> command. As you will not need them anymore, use the following commands to remove the container and container images created:</p>
+			<p>After creating the desired ports. Exit the container using the <code>exit</code> command. As you will not need them anymore, use the following commands to remove the container and container image created:</p>
 			<pre><code>
 docker rm dragon_byte
 docker rmi dragon_byte
 			</code></pre>
+			<p>If you are not using the <code>root</code> user, you will probably want to change the ownership of the <code>distributions</code> directory too so you can modify the files with your own user. Here is the command to do it:</p>
+			<pre><code>
+sudo chmod -R $(whoami) distributions
+			</code></pre>
+			<p>You will need sudo privileges, as that directory will be owned by the <code>root</code> user.</p>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
 	<h2>License</h2>
