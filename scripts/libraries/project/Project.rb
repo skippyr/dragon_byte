@@ -24,6 +24,15 @@ class Project
 		))
 	end
 
+	def self.get_license_file()
+		license_file = RegularFile.new(File.join(
+			self.get_repository_directory().get_path(),
+			"LICENSE"
+		))
+		license_file.set_content(File.read(license_file.get_path()))
+		license_file
+	end
+
 	def self.get_images_creator()
 		ImagesCreator.new(
 			self.get_sources_directory(),

@@ -7,6 +7,10 @@ class ImagesCreator
 		@images_directory = images_directory
 	end
 
+	def get_images_directory()
+		@images_directory
+	end
+
 	def create()
 		temporary_directory = Directory.new(File.join(
 			@images_directory.get_path(),
