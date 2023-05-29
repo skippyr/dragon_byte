@@ -7,7 +7,7 @@
 			<p>Let's get through the steps to do it:</p>
 			<ul>
 				<li>Ensure that you are running a UNIX-like system.</li>
-					<p>All the command used in this section will use that type of system as a reference.</p>
+					<p>All the commands used in this section will use that type of system as a reference.</p>
 					<p>If you are using Windows, try running Linux inside of WSL (Windows Subsystem For Linux).</p>
 				<li>Install Docker and enable its daemon.</li>
 					<p>You can find all the information needed to install it in its <a href="https://docs.docker.com/get-docker/">official website</a>.</p>
@@ -25,7 +25,7 @@
 					<p>The process of creating an image may take some time depending of your internet connection. This process can also throw some errors sometimes: saying that it could not retrive packages. That is normal! Just try to create it again.</p>
 				<li>Create and run a Docker container interactively using the image created in the previous step.</li>
 					<pre><code>
-mkdir distributions
+mkdir -p distributions
 docker run -it --name dragon_byte --mount type=bind,source=$(pwd)/distributions,target=/root/development/dragon_byte/distributions dragon_byte
 					</code></pre>
 					<p>Worths to mention: to be able to access the images and ports created, you will need to mount a directory of your file system inside the container using a bind type.</p>
@@ -42,9 +42,7 @@ docker rm dragon_byte
 docker rmi dragon_byte
 			</code></pre>
 			<p>If you are not using the <code>root</code> user, you will probably want to change the ownership of the <code>distributions</code> directory too so you can modify the files with your own user. Here is the command to do it:</p>
-			<pre><code>
-sudo chmod -R $(whoami) distributions
-			</code></pre>
+			<pre><code>sudo chmod -R $(whoami) distributions</code></pre>
 			<p>You will need sudo privileges, as that directory will be owned by the <code>root</code> user.</p>
 	<h2>Issues And Contributions</h2>
 		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guideline.html">contributions guideline</a>.</p>
