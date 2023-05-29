@@ -16,8 +16,8 @@ class Directory
 	end
 
 	def replace()
-		self.create()
 		self.remove()
+		self.create()
 	end
 	
 	def get_entries()

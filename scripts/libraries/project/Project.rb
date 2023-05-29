@@ -24,6 +24,13 @@ class Project
 		))
 	end
 
+	def self.get_images_creator()
+		ImagesCreator.new(
+			self.get_sources_directory(),
+			self.get_images_directory()
+		)
+	end
+
 	def self.get_cursor()
 		corner_coordinate = Coordinate.new(
 			5,
