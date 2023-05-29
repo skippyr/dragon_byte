@@ -2,6 +2,46 @@
 	<h2>Starting Point</h2>
 		<p>A 42x42 pixels cursor with a dragon drawing that is available for web projects and X11.</p>
 	<h2>Installation And Usage</h2>
+		<h3>Installing From Releases</h3>
+			<p>Ports of this cursor are available in the <code>Releases</code> page. You can download the latest release of the desired port and start using them by reading their installation instructions as following:</p>
+			<h4>For web project</h4>
+				<ul>
+					<li>Download the release of the cursor for web projects: <code>web.zip</code> and unzip it in a formidable directory in your machine.</li>
+					<li>Move the <code>css/dragon_byte</code> directory unziped to a formidable directory in your web project.</li>
+					<li>Import the stylesheet file <code>dragon_byte.css</code> of the directory you have just copied inside your <code>HTML</code> file. You can use a <code>link</code> tag for that. Here is a template that you can use:</li>
+					<pre><code>
+&lt;link
+	rel="stylesheet"
+	href=""
+/&gt;
+					</code></pre>
+					<p>You still have to insert the relative path to include that stylesheet yourself, in the <code>href</code> attribute shown.</p>
+					<li>Write the CSS rules you need to apply the cursor inside the stylesheet that you imported. It already has all the necessary variables defined and in scope for you to do it. Every variable is prefixed with <code>dragon-byte</code> to make them unique. Want a usage example? What about applying the <code>default</code> cursor for your <code>body</code> element:</li>
+					<pre><code>
+body
+{ cursor: var(--dragon-byte-default); }
+					</code></pre>
+					<p>Applying the remaining variables of the cursor is up to you: you will have to manually apply them to your page elements.</p>
+				</ul>
+			<h4>For X11</h4>
+				<ul>
+					<li>Download the release of the cursor for X11: <code>x11.zip</code> and unzip it in a formidable directory in your machine.</li>
+					<li>Move the <code>x11/dragon_byte</code> directory unziped to either:</li>
+						<ul>
+							<li><code>/usr/share/icons</code> for a system wide installation (requires sudo privileges):</li>
+							<pre><code>
+mkdir -p /usr/share/icons
+mv x11/dragon_byte /usr/share/icons
+							</code></pre>
+							<li><code>${HOME}/.local/share/icons</code></pre> for a user installation:</li>
+							<pre><code>
+mkdir -p ${HOME}/.local/share/icons
+mv x11/dragon_byte ${HOME}/.local/share/icons
+							</code></pre>
+						</ul>
+					<li>Apply the cursor using your system's settings application or by using an Xresource rule.</p>
+					<li>Restart X11 for your changes to be properly set.</li>
+				</ul>
 		<h3>Building From Source</h3>
 			<p>You can build the cursor for different ports by using a Docker container inside of a UNIX-like system: like MacOS or Linux, which will allow you to create a development environment with all the required dependencies easily.</p>
 			<p>Let's get through the steps to do it:</p>
