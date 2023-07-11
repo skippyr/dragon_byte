@@ -85,8 +85,8 @@ docker rmi dragon_byte
 			<p>If you are not using the <code>root</code> user, you will probably want to change the ownership of the <code>distributions</code> directory too so you can modify the files with your own user. Here is the command to do it:</p>
 			<pre><code>sudo chmod -R $(whoami) distributions</code></pre>
 			<p>You will need sudo privileges, as that directory will be owned by the <code>root</code> user.</p>
-	<h2>Issues And Contributions</h2>
-		<p>Learn how to report issues, questions and ideas and how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guidelines.html">contributions guidelines</a>.</p>
+	<h2>Issues And Suggestions</h2>
+		<p>Report issues and suggestions through the <a href="https://github.com/skippyr/dragon_byte/issues">issues tab</a>.
 	<h2>License</h2>
 		<p>This project is released under terms of the MIT License. You can refer to the license as the file LICENSE in the repository's root directory.</p>
 		<p>Copyright (c) 2023, Sherman Rofeman. MIT License.</p>
